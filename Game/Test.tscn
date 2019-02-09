@@ -39,6 +39,7 @@ shape = SubResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.13773, 0 )
 
 [node name="Node" type="Node" parent="."]
+editor/display_folded = true
 
 [node name="MeshInstance2" type="MeshInstance" parent="Node"]
 editor/display_folded = true
