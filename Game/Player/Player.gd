@@ -59,7 +59,7 @@ func _physics_process(delta):
 	if ShouldRotateRight and rotation_degrees.y != NewAngle:
 		rotation_degrees.y = round(rotation_degrees.y - 1)
 	
-	if rotation_degrees.y == NewAngle:
+	if floor(rotation_degrees.y) == floor(NewAngle):
 		ShouldRotateLeft = false
 		ShouldRotateRight = false
 	
