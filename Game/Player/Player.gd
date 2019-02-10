@@ -36,8 +36,6 @@ func _physics_process(delta):
 	_movement_process(delta)
 	_root()
 	
-	print(IsRooted)
-	
 	# You can only jump if you are touching the floor
 	if _get_normal().y > 0:
 		CanJump = true
@@ -126,12 +124,13 @@ func _movement_process(delta):
 	if not ShouldRotateRight and not ShouldRotateLeft and not IsRooted:
 		Velocity = move_and_slide(Velocity, _get_normal())
 
-
 func _root():
-	
 	# Root/Uproot Mechanic
 	Space = Input.is_action_just_pressed("Space")
 	if Space and IsRooted:
 		IsRooted = false
 	elif Space and not IsRooted:
 		IsRooted = true
+
+func _shoot():
+	pass
