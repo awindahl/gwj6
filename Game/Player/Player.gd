@@ -17,6 +17,14 @@ var NewAngle = 0
 var ShouldRotateLeft = false
 var ShouldRotateRight = false
 var IsRooted = true
+var IsShooting = false
+var Needle = preload ("res://Player/Needle.tscn")
+export var NumberOfNeedles = 3
+var IsZoomed = false
+var IsMoving = false
+var Yaw = 0
+var Pitch = 0
+var ViewSensitivity = 0.5
 
 # Indetermined vars
 var Up
@@ -25,23 +33,27 @@ var Left
 var Right
 var Space
 var Normal
+var Click
+var JustClick
+var JustClickReleased
 var Direction2d
 var Direction3d
 var RotLeft
 var RotRight
+var CameraPosition
 
 func _physics_process(delta):
 	
 	_rotation_process()
 	_movement_process(delta)
 	_root()
+	_shoot()
 	
 	# You can only jump if you are touching the floor
 	if _get_normal().y > 0:
 		CanJump = true
 	else:
 		_apply_gravity(delta)
-	
 
 func _apply_gravity(delta):
 	Velocity.y += delta * Gravity
@@ -58,26 +70,26 @@ func _get_normal():
 func _rotation_process():
 	# Camera Controls
 	## Inputs
-	if not ShouldRotateLeft and not ShouldRotateRight:
+	if not ShouldRotateLeft and not ShouldRotateRight and not IsZoomed:
 		RotLeft = Input.is_action_just_pressed("RotateLeft")
 		RotRight = Input.is_action_just_pressed("RotateRight")
 	
 	# Make sure you can only rotate in one direction once
 	## TODO Camera Acceleration?
 	if RotLeft and not ShouldRotateLeft and not RotRight:
-		NewAngle = floor(rotation_degrees.y + 90)
+		NewAngle = round(rotation_degrees.y + 90.0)
 		ShouldRotateLeft = true
 	if RotRight and not ShouldRotateRight and not RotLeft:
-		NewAngle = floor(rotation_degrees.y - 90)
+		NewAngle = round(rotation_degrees.y - 90.0)
 		ShouldRotateRight = true
 	
 	if ShouldRotateLeft and rotation_degrees.y != NewAngle:
-		rotation_degrees.y = round(rotation_degrees.y + 1)
+		rotation_degrees.y = round(rotation_degrees.y + 3.0)
 	if ShouldRotateRight and rotation_degrees.y != NewAngle:
-		rotation_degrees.y = round(rotation_degrees.y - 1)
+		rotation_degrees.y = round(rotation_degrees.y - 3.0)
 	
 	# Stop rotating !!
-	if floor(rotation_degrees.y) == floor(NewAngle):
+	if round(rotation_degrees.y) == round(NewAngle):
 		ShouldRotateLeft = false
 		ShouldRotateRight = false
 
@@ -102,7 +114,7 @@ func _movement_process(delta):
 		Direction2d.x -= 1
 	
 	Direction2d = Direction2d.normalized()
-	
+
 	Direction3d += global_transform.basis.z.normalized() * Direction2d.y
 	Direction3d += global_transform.basis.x.normalized() * Direction2d.x
 	
@@ -120,10 +132,13 @@ func _movement_process(delta):
 	Velocity.x = hVel.x
 	Velocity.z = hVel.z
 	
-	# Only move if camera is not rotating and not rooted
-	if not ShouldRotateRight and not ShouldRotateLeft and not IsRooted:
+	# Only move if camera is not rotating and not rooted and not zoomed
+	if not ShouldRotateRight and not ShouldRotateLeft and not IsRooted and not IsZoomed:
 		Velocity = move_and_slide(Velocity, _get_normal())
-
+		IsMoving = true
+	else:
+		IsMoving = false
+	
 func _root():
 	# Root/Uproot Mechanic
 	Space = Input.is_action_just_pressed("Space")
@@ -131,6 +146,37 @@ func _root():
 		IsRooted = false
 	elif Space and not IsRooted:
 		IsRooted = true
-
+	
 func _shoot():
-	pass
+	# Switch Camera to FPS when shooting
+	##Input
+	Click = Input.is_mouse_button_pressed(BUTTON_RIGHT)
+	JustClick = Input.is_action_just_pressed("JustClick")
+	JustClickReleased = Input.is_action_just_released("JustClick")
+	
+	if $AnimationPlayer.is_playing() == false and IsZoomed == true:
+		$CameraTarget/Yaw/FPSCamera.make_current()
+	else:
+		$CameraTarget/ThirdPerson/TPCamera.make_current()
+	
+	if JustClick:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		$AnimationPlayer.play("CameraMove")
+		IsZoomed = true
+		$CameraTarget/Yaw/FPSCamera/Crosshair.visible = true
+		
+	if JustClickReleased:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		$AnimationPlayer.play_backwards("CameraMove")
+		IsZoomed = false
+		$CameraTarget/Yaw/FPSCamera/Crosshair.visible = false
+		Yaw = 0
+		Pitch = 0
+		$CameraTarget/Yaw.rotation = Vector3()
+	
+func _unhandled_input(event):
+	if event is InputEventMouseMotion and IsZoomed:
+		Yaw = fmod(Yaw - event.relative.x * ViewSensitivity, 360)
+		Pitch = max(min(Pitch - event.relative.y * ViewSensitivity, 80), -80)
+		$CameraTarget/Yaw.rotation = Vector3(0, deg2rad(Yaw), 0)
+	$CameraTarget/Yaw/FPSCamera.rotation = Vector3(deg2rad(Pitch), 0, 0)
