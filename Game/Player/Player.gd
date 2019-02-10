@@ -36,8 +36,6 @@ func _physics_process(delta):
 	_movement_process(delta)
 	_root()
 	
-	print(IsRooted)
-	
 	# You can only jump if you are touching the floor
 	if _get_normal().y > 0:
 		CanJump = true
