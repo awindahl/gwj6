@@ -152,11 +152,11 @@ func _shoot():
 	# Switch Camera to FPS when shooting
 	##Input
 	if not ShouldRotateLeft and not ShouldRotateRight:
-		Click = Input.is_mouse_button_pressed(BUTTON_RIGHT)
 		JustClick = Input.is_action_just_pressed("JustClick")
 		JustClickReleased = Input.is_action_just_released("JustClick")
 		
 	
+	## Handle switching between cameras
 	if $AnimationPlayer.is_playing() == false and IsZoomed == true:
 		$CameraTarget/Yaw/FPSCamera.make_current()
 		CanMoveMouse = true
@@ -178,6 +178,14 @@ func _shoot():
 		Yaw = 0
 		Pitch = 0
 		$CameraTarget/Yaw.rotation = Vector3()
+	
+	# Shoot needle
+	
+	if CanMoveMouse:
+		Click = Input.is_mouse_button_pressed(BUTTON_LEFT)
+		if Click:
+			print("AA")
+	
 	
 func _unhandled_input(event):
 	if event is InputEventMouseMotion and CanMoveMouse:
