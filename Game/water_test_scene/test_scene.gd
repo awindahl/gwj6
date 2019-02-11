@@ -13,7 +13,7 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
-	print(water.translation.y)
+	#print(water.translation.y)
 	if !gameOver:
 		_checkGameCondition()
 	if !faucetOn:
@@ -23,7 +23,7 @@ func _process(delta):
 
 
 func _raiseWater():
-	water.translate(Vector3(0,0.0001,0))
+	water.translate(Vector3(0,0.001,0))
 	
 func _lowerWater():
 	if water.translation.y > -1:
