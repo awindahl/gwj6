@@ -25,6 +25,7 @@ var IsMoving = false
 var Yaw = 0
 var Pitch = 0
 var ViewSensitivity = 0.5
+var CanMoveMouse = false
 
 # Indetermined vars
 var Up
@@ -150,22 +151,26 @@ func _root():
 func _shoot():
 	# Switch Camera to FPS when shooting
 	##Input
-	Click = Input.is_mouse_button_pressed(BUTTON_RIGHT)
-	JustClick = Input.is_action_just_pressed("JustClick")
-	JustClickReleased = Input.is_action_just_released("JustClick")
+	if not ShouldRotateLeft and not ShouldRotateRight:
+		Click = Input.is_mouse_button_pressed(BUTTON_RIGHT)
+		JustClick = Input.is_action_just_pressed("JustClick")
+		JustClickReleased = Input.is_action_just_released("JustClick")
+		
 	
 	if $AnimationPlayer.is_playing() == false and IsZoomed == true:
 		$CameraTarget/Yaw/FPSCamera.make_current()
+		CanMoveMouse = true
 	else:
 		$CameraTarget/ThirdPerson/TPCamera.make_current()
+		CanMoveMouse = false
 	
-	if JustClick:
+	if JustClick and not IsZoomed:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		$AnimationPlayer.play("CameraMove")
 		IsZoomed = true
 		$CameraTarget/Yaw/FPSCamera/Crosshair.visible = true
 		
-	if JustClickReleased:
+	if JustClickReleased and IsZoomed:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		$AnimationPlayer.play_backwards("CameraMove")
 		IsZoomed = false
@@ -175,7 +180,7 @@ func _shoot():
 		$CameraTarget/Yaw.rotation = Vector3()
 	
 func _unhandled_input(event):
-	if event is InputEventMouseMotion and IsZoomed:
+	if event is InputEventMouseMotion and CanMoveMouse:
 		Yaw = fmod(Yaw - event.relative.x * ViewSensitivity, 360)
 		Pitch = max(min(Pitch - event.relative.y * ViewSensitivity, 80), -80)
 		$CameraTarget/Yaw.rotation = Vector3(0, deg2rad(Yaw), 0)
