@@ -14,7 +14,7 @@ export var NumberOfNeedles = 3
 
 var MoveSpeed = WalkSpeed
 var Velocity = Vector3()
-var CanJump = true
+var CanClimb = true
 var NewAngle = 0
 var ShouldRotateLeft = false
 var ShouldRotateRight = false
@@ -26,6 +26,7 @@ var Yaw = 0
 var Pitch = 0
 var ViewSensitivity = 0.5
 var CanMoveMouse = false
+var IsClimbing = false
 
 # Indetermined vars
 var Up
@@ -48,10 +49,11 @@ func _physics_process(delta):
 	_movement_process(delta)
 	_root()
 	_shoot()
+	_climb()
 	
 	# You can only jump if you are touching the floor
 	if _get_normal().y > 0:
-		CanJump = true
+		CanClimb = true
 	else:
 		_apply_gravity(delta)
 
@@ -199,3 +201,6 @@ func _unhandled_input(event):
 		Pitch = max(min(Pitch - event.relative.y * ViewSensitivity, 80), -80)
 		$CameraTarget/Yaw.rotation = Vector3(0, deg2rad(Yaw), 0)
 	$CameraTarget/Yaw/FPSCamera.rotation = Vector3(deg2rad(Pitch), 0, 0)
+
+func _climb():
+	pass
