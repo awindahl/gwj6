@@ -47,15 +47,14 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-008, -1, 0, 1, -4.37114e-008, 0, 0,
 mesh = SubResource( 1 )
 material/0 = null
 
+[node name="Face" type="Sprite3D" parent="MeshInstance"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-008, 1, 0, -1, -4.37114e-008, 0, 1.01842, -4.45166e-008 )
+modulate = Color( 0.172549, 1, 0, 1 )
+texture = ExtResource( 2 )
+
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-008, -1, 0, 1, -4.37114e-008, 0, 0, 0 )
 shape = SubResource( 2 )
-
-[node name="Face" type="Sprite3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.01842 )
-visible = false
-modulate = Color( 0.172549, 1, 0, 1 )
-texture = ExtResource( 2 )
 
 [node name="FaceRay" type="RayCast" parent="."]
 transform = Transform( 1, 0, 0, 0, 1.19249e-008, 1, 0, -1, 1.19249e-008, 0, 0, 1 )
@@ -78,6 +77,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.08225e-007, 0, -1.20249 )
 
 [node name="Crosshair" type="Sprite3D" parent="CameraTarget/Yaw/FPSCamera"]
 transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 1.59451e-007, 0, -1.8239 )
+visible = false
 texture = ExtResource( 2 )
 
 [node name="RayCast" type="RayCast" parent="CameraTarget/Yaw/FPSCamera"]

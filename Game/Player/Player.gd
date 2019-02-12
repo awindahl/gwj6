@@ -10,6 +10,8 @@ const JUMP = 20
 export var Gravity = -70
 export var WalkSpeed = 20
 export var SprintSpeed = 25
+export var NumberOfNeedles = 3
+
 var MoveSpeed = WalkSpeed
 var Velocity = Vector3()
 var CanJump = true
@@ -18,7 +20,6 @@ var ShouldRotateLeft = false
 var ShouldRotateRight = false
 var IsRooted = true
 var Needle = preload ("res://Player/Needle.tscn")
-export var NumberOfNeedles = 3
 var IsZoomed = false
 var IsMoving = false
 var Yaw = 0
@@ -83,8 +84,10 @@ func _rotation_process():
 		ShouldRotateRight = true
 	
 	if ShouldRotateLeft and rotation_degrees.y != NewAngle:
+		$MeshInstance.rotation_degrees.y = 0
 		rotation_degrees.y = round(rotation_degrees.y + 3.0)
 	if ShouldRotateRight and rotation_degrees.y != NewAngle:
+		$MeshInstance.rotation_degrees.y = 0
 		rotation_degrees.y = round(rotation_degrees.y - 3.0)
 	
 	# Stop rotating !!
@@ -105,12 +108,16 @@ func _movement_process(delta):
 	Direction3d = Vector3()
 	if Up:
 		Direction2d.y += 1
+		$MeshInstance.rotation_degrees.y = 0
 	if Down:
 		Direction2d.y -= 1
+		$MeshInstance.rotation_degrees.y = 180
 	if Left:
 		Direction2d.x += 1
+		$MeshInstance.rotation_degrees.y = 90
 	if Right:
 		Direction2d.x -= 1
+		$MeshInstance.rotation_degrees.y = -90
 	
 	Direction2d = Direction2d.normalized()
 
@@ -148,7 +155,7 @@ func _root():
 	
 func _shoot():
 	# Switch Camera to FPS when shooting
-	##Input
+	## Input
 	if not ShouldRotateLeft and not ShouldRotateRight:
 		JustClick = Input.is_action_just_pressed("RightClick")
 		JustClickReleased = Input.is_action_just_released("RightClick")
@@ -177,7 +184,7 @@ func _shoot():
 		Pitch = 0
 		$CameraTarget/Yaw.rotation = Vector3()
 	
-	# Shoot needle
+	## Shoot needle
 	if CanMoveMouse:
 		Click = Input.is_action_just_pressed("LeftClick")
 		if Click:
