@@ -10,6 +10,8 @@ const JUMP = 20
 export var Gravity = -70
 export var WalkSpeed = 20
 export var SprintSpeed = 25
+export var NumberOfNeedles = 3
+
 var MoveSpeed = WalkSpeed
 var Velocity = Vector3()
 var CanJump = true
@@ -17,6 +19,13 @@ var NewAngle = 0
 var ShouldRotateLeft = false
 var ShouldRotateRight = false
 var IsRooted = true
+var Needle = preload ("res://Player/Needle.tscn")
+var IsZoomed = false
+var IsMoving = false
+var Yaw = 0
+var Pitch = 0
+var ViewSensitivity = 0.5
+var CanMoveMouse = false
 
 # Indetermined vars
 var Up
@@ -25,6 +34,9 @@ var Left
 var Right
 var Space
 var Normal
+var Click
+var JustClick
+var JustClickReleased
 var Direction2d
 var Direction3d
 var RotLeft
@@ -35,13 +47,13 @@ func _physics_process(delta):
 	_rotation_process()
 	_movement_process(delta)
 	_root()
+	_shoot()
 	
 	# You can only jump if you are touching the floor
 	if _get_normal().y > 0:
 		CanJump = true
 	else:
 		_apply_gravity(delta)
-	
 
 func _apply_gravity(delta):
 	Velocity.y += delta * Gravity
@@ -58,26 +70,28 @@ func _get_normal():
 func _rotation_process():
 	# Camera Controls
 	## Inputs
-	if not ShouldRotateLeft and not ShouldRotateRight:
+	if not ShouldRotateLeft and not ShouldRotateRight and not IsZoomed:
 		RotLeft = Input.is_action_just_pressed("RotateLeft")
 		RotRight = Input.is_action_just_pressed("RotateRight")
 	
 	# Make sure you can only rotate in one direction once
 	## TODO Camera Acceleration?
 	if RotLeft and not ShouldRotateLeft and not RotRight:
-		NewAngle = floor(rotation_degrees.y + 90)
+		NewAngle = round(rotation_degrees.y + 90.0)
 		ShouldRotateLeft = true
 	if RotRight and not ShouldRotateRight and not RotLeft:
-		NewAngle = floor(rotation_degrees.y - 90)
+		NewAngle = round(rotation_degrees.y - 90.0)
 		ShouldRotateRight = true
 	
 	if ShouldRotateLeft and rotation_degrees.y != NewAngle:
-		rotation_degrees.y = round(rotation_degrees.y + 1)
+		$MeshInstance.rotation_degrees.y = 0
+		rotation_degrees.y = round(rotation_degrees.y + 3.0)
 	if ShouldRotateRight and rotation_degrees.y != NewAngle:
-		rotation_degrees.y = round(rotation_degrees.y - 1)
+		$MeshInstance.rotation_degrees.y = 0
+		rotation_degrees.y = round(rotation_degrees.y - 3.0)
 	
 	# Stop rotating !!
-	if floor(rotation_degrees.y) == floor(NewAngle):
+	if round(rotation_degrees.y) == round(NewAngle):
 		ShouldRotateLeft = false
 		ShouldRotateRight = false
 
@@ -94,15 +108,19 @@ func _movement_process(delta):
 	Direction3d = Vector3()
 	if Up:
 		Direction2d.y += 1
+		$MeshInstance.rotation_degrees.y = 0
 	if Down:
 		Direction2d.y -= 1
+		$MeshInstance.rotation_degrees.y = 180
 	if Left:
 		Direction2d.x += 1
+		$MeshInstance.rotation_degrees.y = 90
 	if Right:
 		Direction2d.x -= 1
+		$MeshInstance.rotation_degrees.y = -90
 	
 	Direction2d = Direction2d.normalized()
-	
+
 	Direction3d += global_transform.basis.z.normalized() * Direction2d.y
 	Direction3d += global_transform.basis.x.normalized() * Direction2d.x
 	
@@ -120,16 +138,63 @@ func _movement_process(delta):
 	Velocity.x = hVel.x
 	Velocity.z = hVel.z
 	
-	# Only move if camera is not rotating and not rooted
-	if not ShouldRotateRight and not ShouldRotateLeft and not IsRooted:
+	# Only move if camera is not rotating and not rooted and not zoomed
+	if not ShouldRotateRight and not ShouldRotateLeft and not IsRooted and not IsZoomed:
 		Velocity = move_and_slide(Velocity, _get_normal())
-
-
-func _root():
+		IsMoving = true
+	else:
+		IsMoving = false
 	
+func _root():
 	# Root/Uproot Mechanic
 	Space = Input.is_action_just_pressed("Space")
 	if Space and IsRooted:
 		IsRooted = false
 	elif Space and not IsRooted:
 		IsRooted = true
+	
+func _shoot():
+	# Switch Camera to FPS when shooting
+	## Input
+	if not ShouldRotateLeft and not ShouldRotateRight:
+		JustClick = Input.is_action_just_pressed("RightClick")
+		JustClickReleased = Input.is_action_just_released("RightClick")
+		
+	
+	## Handle switching between cameras
+	if $AnimationPlayer.is_playing() == false and IsZoomed == true:
+		$CameraTarget/Yaw/FPSCamera.make_current()
+		CanMoveMouse = true
+	else:
+		$CameraTarget/ThirdPerson/TPCamera.make_current()
+		CanMoveMouse = false
+	
+	if JustClick and not IsZoomed:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		$AnimationPlayer.play("CameraMove")
+		IsZoomed = true
+		$CameraTarget/Yaw/FPSCamera/Crosshair.visible = true
+		
+	if JustClickReleased and IsZoomed:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		$AnimationPlayer.play_backwards("CameraMove")
+		IsZoomed = false
+		$CameraTarget/Yaw/FPSCamera/Crosshair.visible = false
+		Yaw = 0
+		Pitch = 0
+		$CameraTarget/Yaw.rotation = Vector3()
+	
+	## Shoot needle
+	if CanMoveMouse:
+		Click = Input.is_action_just_pressed("LeftClick")
+		if Click:
+			var NewNeedle = Needle.instance()
+			get_tree().root.get_children()[0].add_child(NewNeedle)
+			NewNeedle.global_transform = $CameraTarget/Yaw/FPSCamera/RayCast.global_transform
+	
+func _unhandled_input(event):
+	if event is InputEventMouseMotion and CanMoveMouse:
+		Yaw = fmod(Yaw - event.relative.x * ViewSensitivity, 360)
+		Pitch = max(min(Pitch - event.relative.y * ViewSensitivity, 80), -80)
+		$CameraTarget/Yaw.rotation = Vector3(0, deg2rad(Yaw), 0)
+	$CameraTarget/Yaw/FPSCamera.rotation = Vector3(deg2rad(Pitch), 0, 0)
