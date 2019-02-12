@@ -17,7 +17,6 @@ var NewAngle = 0
 var ShouldRotateLeft = false
 var ShouldRotateRight = false
 var IsRooted = true
-var IsShooting = false
 var Needle = preload ("res://Player/Needle.tscn")
 export var NumberOfNeedles = 3
 var IsZoomed = false
@@ -41,7 +40,6 @@ var Direction2d
 var Direction3d
 var RotLeft
 var RotRight
-var CameraPosition
 
 func _physics_process(delta):
 	
@@ -152,8 +150,8 @@ func _shoot():
 	# Switch Camera to FPS when shooting
 	##Input
 	if not ShouldRotateLeft and not ShouldRotateRight:
-		JustClick = Input.is_action_just_pressed("JustClick")
-		JustClickReleased = Input.is_action_just_released("JustClick")
+		JustClick = Input.is_action_just_pressed("RightClick")
+		JustClickReleased = Input.is_action_just_released("RightClick")
 		
 	
 	## Handle switching between cameras
@@ -180,12 +178,12 @@ func _shoot():
 		$CameraTarget/Yaw.rotation = Vector3()
 	
 	# Shoot needle
-	
 	if CanMoveMouse:
-		Click = Input.is_mouse_button_pressed(BUTTON_LEFT)
+		Click = Input.is_action_just_pressed("LeftClick")
 		if Click:
-			print("AA")
-	
+			var NewNeedle = Needle.instance()
+			get_tree().root.get_children()[0].add_child(NewNeedle)
+			NewNeedle.global_transform = $CameraTarget/Yaw/FPSCamera/RayCast.global_transform
 	
 func _unhandled_input(event):
 	if event is InputEventMouseMotion and CanMoveMouse:

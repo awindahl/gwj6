@@ -74,19 +74,19 @@ transform = Transform( -1, 0, 8.74228e-008, 0, 1, 0, -8.74228e-008, 0, -1, 0, 0,
 [node name="Yaw" type="Spatial" parent="CameraTarget"]
 
 [node name="FPSCamera" type="Camera" parent="CameraTarget/Yaw"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.03546 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.08225e-007, 0, -1.20249 )
 
 [node name="Crosshair" type="Sprite3D" parent="CameraTarget/Yaw/FPSCamera"]
 transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 1.59451e-007, 0, -1.8239 )
-visible = false
 texture = ExtResource( 2 )
 
 [node name="RayCast" type="RayCast" parent="CameraTarget/Yaw/FPSCamera"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-008, -1, 0, 1, -4.37114e-008, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, -1, 8.74228e-008, 0, -8.74228e-008, -1, 0, 0, 0 )
 enabled = true
-cast_to = Vector3( 0, -50.08, 0 )
+cast_to = Vector3( 0, 0, 10 )
 
 [node name="ThirdPerson" type="Spatial" parent="CameraTarget"]
+editor/display_folded = true
 transform = Transform( -1, 0, 8.74228e-008, 0, 1, 0, -8.74228e-008, 0, -1, 0, 0, 0 )
 
 [node name="TPCamera" type="Camera" parent="CameraTarget/ThirdPerson"]
