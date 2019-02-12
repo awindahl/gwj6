@@ -2,7 +2,6 @@
 
 [sub_resource type="ProceduralSky" id=1]
 
-
 [resource]
 
 background_mode = 2
