@@ -106,16 +106,16 @@ func _movement_process(delta):
 	# Set general direction vector in 2 dimensions, then translate to 3d to keep the player forward as "true forward"
 	Direction2d = Vector2()
 	Direction3d = Vector3()
-	if Up:
+	if Up and not IsZoomed:
 		Direction2d.y += 1
 		$MeshInstance.rotation_degrees.y = 0
-	if Down:
+	if Down and not IsZoomed:
 		Direction2d.y -= 1
 		$MeshInstance.rotation_degrees.y = 180
-	if Left:
+	if Left and not IsZoomed:
 		Direction2d.x += 1
 		$MeshInstance.rotation_degrees.y = 90
-	if Right:
+	if Right and not IsZoomed:
 		Direction2d.x -= 1
 		$MeshInstance.rotation_degrees.y = -90
 	
@@ -170,6 +170,7 @@ func _shoot():
 		CanMoveMouse = false
 	
 	if JustClick and not IsZoomed:
+		$MeshInstance.rotation_degrees.y = 0
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		$AnimationPlayer.play("CameraMove")
 		IsZoomed = true
