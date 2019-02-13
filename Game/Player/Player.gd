@@ -9,7 +9,6 @@ const JUMP = 20
 # Assigned vars, export some of these
 export var Gravity = -70
 export var WalkSpeed = 20
-export var SprintSpeed = 25
 export var NumberOfNeedles = 3
 
 var MoveSpeed = WalkSpeed
@@ -36,12 +35,14 @@ var Right
 var Space
 var Normal
 var Click
+var Climb
 var JustClick
 var JustClickReleased
 var Direction2d
 var Direction3d
 var RotLeft
 var RotRight
+
 
 func _physics_process(delta):
 	
@@ -152,7 +153,7 @@ func _root():
 	Space = Input.is_action_just_pressed("Space")
 	if Space and IsRooted:
 		IsRooted = false
-	elif Space and not IsRooted:
+	elif Space and not IsRooted and not ShouldRotateLeft and not ShouldRotateRight and not IsZoomed and not IsClimbing:
 		IsRooted = true
 	
 func _shoot():
@@ -203,4 +204,26 @@ func _unhandled_input(event):
 	$CameraTarget/Yaw/FPSCamera.rotation = Vector3(deg2rad(Pitch), 0, 0)
 
 func _climb():
-	pass
+	## Inputs
+	if CanClimb:
+		Climb = Input.is_action_just_pressed("Climb")
+		
+	if _climb_check() and \
+	Climb and \
+	not IsZoomed and \
+	not IsRooted and \
+	not ShouldRotateLeft and \
+	not ShouldRotateRight and \
+	(Up or \
+	Down or \
+	Left or \
+	Right):
+			Velocity.y += 20
+			Velocity += global_transform.basis.z.normalized() * Direction2d.y
+			Velocity += global_transform.basis.x.normalized() * Direction2d.x
+
+func _climb_check():
+	if $MeshInstance/ClimbRays/Bottom.is_colliding() and not $MeshInstance/ClimbRays/Top.is_colliding():
+		return 1
+	else:
+		return 0
