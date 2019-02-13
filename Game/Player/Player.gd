@@ -9,12 +9,11 @@ const JUMP = 20
 # Assigned vars, export some of these
 export var Gravity = -70
 export var WalkSpeed = 20
-export var SprintSpeed = 25
 export var NumberOfNeedles = 3
 
 var MoveSpeed = WalkSpeed
 var Velocity = Vector3()
-var CanJump = true
+var CanClimb = true
 var NewAngle = 0
 var ShouldRotateLeft = false
 var ShouldRotateRight = false
@@ -26,6 +25,7 @@ var Yaw = 0
 var Pitch = 0
 var ViewSensitivity = 0.5
 var CanMoveMouse = false
+var IsClimbing = false
 
 # Indetermined vars
 var Up
@@ -35,6 +35,7 @@ var Right
 var Space
 var Normal
 var Click
+var Climb
 var JustClick
 var JustClickReleased
 var Direction2d
@@ -42,16 +43,18 @@ var Direction3d
 var RotLeft
 var RotRight
 
+
 func _physics_process(delta):
 	
 	_rotation_process()
 	_movement_process(delta)
 	_root()
 	_shoot()
+	_climb()
 	
 	# You can only jump if you are touching the floor
 	if _get_normal().y > 0:
-		CanJump = true
+		CanClimb = true
 	else:
 		_apply_gravity(delta)
 
@@ -112,12 +115,14 @@ func _movement_process(delta):
 	if Down and not IsZoomed:
 		Direction2d.y -= 1
 		$MeshInstance.rotation_degrees.y = 180
-	if Left and not IsZoomed:
+	if Left:
 		Direction2d.x += 1
-		$MeshInstance.rotation_degrees.y = 90
-	if Right and not IsZoomed:
+		if not IsZoomed:
+			$MeshInstance.rotation_degrees.y = 90
+	if Right:
 		Direction2d.x -= 1
-		$MeshInstance.rotation_degrees.y = -90
+		if not IsZoomed:
+			$MeshInstance.rotation_degrees.y = -90
 	
 	Direction2d = Direction2d.normalized()
 
@@ -139,7 +144,7 @@ func _movement_process(delta):
 	Velocity.z = hVel.z
 	
 	# Only move if camera is not rotating and not rooted and not zoomed
-	if not ShouldRotateRight and not ShouldRotateLeft and not IsRooted and not IsZoomed:
+	if not ShouldRotateRight and not ShouldRotateLeft and not IsRooted and (not IsZoomed or CanMoveMouse):
 		Velocity = move_and_slide(Velocity, _get_normal())
 		IsMoving = true
 	else:
@@ -150,7 +155,7 @@ func _root():
 	Space = Input.is_action_just_pressed("Space")
 	if Space and IsRooted:
 		IsRooted = false
-	elif Space and not IsRooted:
+	elif Space and not IsRooted and not ShouldRotateLeft and not ShouldRotateRight and not IsZoomed and not IsClimbing:
 		IsRooted = true
 	
 func _shoot():
@@ -195,7 +200,33 @@ func _shoot():
 	
 func _unhandled_input(event):
 	if event is InputEventMouseMotion and CanMoveMouse:
-		Yaw = fmod(Yaw - event.relative.x * ViewSensitivity, 360)
+		Yaw = max(min(Yaw - event.relative.x * ViewSensitivity,80), -80)
 		Pitch = max(min(Pitch - event.relative.y * ViewSensitivity, 80), -80)
 		$CameraTarget/Yaw.rotation = Vector3(0, deg2rad(Yaw), 0)
 	$CameraTarget/Yaw/FPSCamera.rotation = Vector3(deg2rad(Pitch), 0, 0)
+
+func _climb():
+	## Inputs
+	if CanClimb:
+		Climb = Input.is_action_just_pressed("Climb")
+	
+	## LEARN HOW TO USE FSMS FUCKS SAKE MAN
+	if _climb_check() and \
+	Climb and \
+	not IsZoomed and \
+	not IsRooted and \
+	not ShouldRotateLeft and \
+	not ShouldRotateRight and \
+	(Up or \
+	Down or \
+	Left or \
+	Right):
+			Velocity.y += 20
+			Velocity += global_transform.basis.z.normalized() * Direction2d.y
+			Velocity += global_transform.basis.x.normalized() * Direction2d.x
+
+func _climb_check():
+	if $MeshInstance/ClimbRays/Bottom.is_colliding() and not $MeshInstance/ClimbRays/Top.is_colliding():
+		return 1
+	else:
+		return 0

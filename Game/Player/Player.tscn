@@ -52,13 +52,22 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-008, 1, 0, -1, -4.37114e-008, 0, 1.
 modulate = Color( 0.172549, 1, 0, 1 )
 texture = ExtResource( 2 )
 
+[node name="ClimbRays" type="Spatial" parent="MeshInstance"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-008, 1, 0, -1, -4.37114e-008, 0, 0, 0 )
+
+[node name="Top" type="RayCast" parent="MeshInstance/ClimbRays"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.37062, 0.750669 )
+enabled = true
+cast_to = Vector3( 0, 0, 2 )
+
+[node name="Bottom" type="RayCast" parent="MeshInstance/ClimbRays"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.729099, 0.750669 )
+enabled = true
+cast_to = Vector3( 0, 0, 2 )
+
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-008, -1, 0, 1, -4.37114e-008, 0, 0, 0 )
 shape = SubResource( 2 )
-
-[node name="FaceRay" type="RayCast" parent="."]
-transform = Transform( 1, 0, 0, 0, 1.19249e-008, 1, 0, -1, 1.19249e-008, 0, 0, 1 )
-enabled = true
 
 [node name="FloorRay" type="RayCast" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.951221, 0 )
@@ -68,12 +77,14 @@ collision_mask = 2
 anims/CameraMove = SubResource( 3 )
 
 [node name="CameraTarget" type="Spatial" parent="."]
+editor/display_folded = true
 transform = Transform( -1, 0, 8.74228e-008, 0, 1, 0, -8.74228e-008, 0, -1, 0, 0, 0 )
 
 [node name="Yaw" type="Spatial" parent="CameraTarget"]
 
 [node name="FPSCamera" type="Camera" parent="CameraTarget/Yaw"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.08225e-007, 0, -1.20249 )
+far = 2048.0
 
 [node name="Crosshair" type="Sprite3D" parent="CameraTarget/Yaw/FPSCamera"]
 transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 1.59451e-007, 0, -1.8239 )
@@ -86,7 +97,6 @@ enabled = true
 cast_to = Vector3( 0, 0, 10 )
 
 [node name="ThirdPerson" type="Spatial" parent="CameraTarget"]
-editor/display_folded = true
 transform = Transform( -1, 0, 8.74228e-008, 0, 1, 0, -8.74228e-008, 0, -1, 0, 0, 0 )
 
 [node name="TPCamera" type="Camera" parent="CameraTarget/ThirdPerson"]
