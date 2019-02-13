@@ -115,12 +115,14 @@ func _movement_process(delta):
 	if Down and not IsZoomed:
 		Direction2d.y -= 1
 		$MeshInstance.rotation_degrees.y = 180
-	if Left and not IsZoomed:
+	if Left:
 		Direction2d.x += 1
-		$MeshInstance.rotation_degrees.y = 90
-	if Right and not IsZoomed:
+		if not IsZoomed:
+			$MeshInstance.rotation_degrees.y = 90
+	if Right:
 		Direction2d.x -= 1
-		$MeshInstance.rotation_degrees.y = -90
+		if not IsZoomed:
+			$MeshInstance.rotation_degrees.y = -90
 	
 	Direction2d = Direction2d.normalized()
 
@@ -142,7 +144,7 @@ func _movement_process(delta):
 	Velocity.z = hVel.z
 	
 	# Only move if camera is not rotating and not rooted and not zoomed
-	if not ShouldRotateRight and not ShouldRotateLeft and not IsRooted and not IsZoomed:
+	if not ShouldRotateRight and not ShouldRotateLeft and not IsRooted and (not IsZoomed or CanMoveMouse):
 		Velocity = move_and_slide(Velocity, _get_normal())
 		IsMoving = true
 	else:
@@ -198,7 +200,7 @@ func _shoot():
 	
 func _unhandled_input(event):
 	if event is InputEventMouseMotion and CanMoveMouse:
-		Yaw = fmod(Yaw - event.relative.x * ViewSensitivity, 360)
+		Yaw = max(min(Yaw - event.relative.x * ViewSensitivity,80), -80)
 		Pitch = max(min(Pitch - event.relative.y * ViewSensitivity, 80), -80)
 		$CameraTarget/Yaw.rotation = Vector3(0, deg2rad(Yaw), 0)
 	$CameraTarget/Yaw/FPSCamera.rotation = Vector3(deg2rad(Pitch), 0, 0)
@@ -207,7 +209,8 @@ func _climb():
 	## Inputs
 	if CanClimb:
 		Climb = Input.is_action_just_pressed("Climb")
-		
+	
+	## LEARN HOW TO USE FSMS FUCKS SAKE MAN
 	if _climb_check() and \
 	Climb and \
 	not IsZoomed and \
