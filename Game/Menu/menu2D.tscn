@@ -18,9 +18,10 @@ render_target_v_flip = true
 [node name="menu3D" parent="Viewport" instance=ExtResource( 2 )]
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 546.149, 307.313 )
-scale = Vector2( 0.582455, 0.582455 )
+position = Vector2( -12.0062, -7.00342 )
+scale = Vector2( 0.55, 0.58 )
 texture = SubResource( 1 )
+offset = Vector2( 958.28, 539.641 )
 
 [node name="main" type="Control" parent="."]
 editor/display_folded = true
@@ -76,7 +77,6 @@ margin_bottom = 104.0
 text = "Quit"
 
 [node name="options" type="Control" parent="."]
-editor/display_folded = true
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -164,5 +164,6 @@ text = "Back"
 [connection signal="pressed" from="options/fullscrnBtn" to="." method="_on_fullscrnBtn_pressed"]
 [connection signal="pressed" from="options/toggleAimBtn" to="." method="_on_toggleAimBtn_pressed"]
 [connection signal="pressed" from="options/muteBtn" to="." method="_on_muteBtn_pressed"]
+[connection signal="item_selected" from="options/sizeBtn" to="." method="_on_sizeBtn_item_selected"]
 [connection signal="pressed" from="options/options_backBtn" to="." method="_on_backBtn_pressed"]
 [connection signal="pressed" from="credits/credits_backBtn" to="." method="_on_backBtn_pressed"]
