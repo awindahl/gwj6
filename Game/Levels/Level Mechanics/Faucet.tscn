@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://water_test_scene/faucet.dae" type="PackedScene" id=1]
-[ext_resource path="res://water_test_scene/faucetWaterMaterial.tres" type="Material" id=2]
+[ext_resource path="res://Levels/Level Mechanics/Faucet.gd" type="Script" id=2]
+[ext_resource path="res://water_test_scene/faucetWaterMaterial.tres" type="Material" id=3]
 
 [sub_resource type="ConcavePolygonShape" id=1]
 
@@ -10,7 +11,50 @@ data = PoolVector3Array( 0, -1, -1, 0.1951, 1, -0.9808, 0, 1, -1, 0, -1, -1, 0.1
 [sub_resource type="CylinderMesh" id=2]
 
 
-[node name="Scene Root" index="0" instance=ExtResource( 1 )]
+[sub_resource type="Animation" id=3]
+
+resource_name = "Off"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Water:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.014914, 0.45 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.96 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_done"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Camera:current")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.03, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[node name="Faucet" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
 
 [node name="Cylinder" parent="." index="0"]
 editor/display_folded = true
@@ -21,8 +65,15 @@ transform = Transform( 5.14879e-008, 0.681978, 0, -0.681978, 5.14879e-008, 0, 0,
 [node name="CollisionShape" type="CollisionShape" parent="Cylinder/StaticBody" index="0"]
 shape = SubResource( 1 )
 
-[node name="MeshInstance" type="MeshInstance" parent="." index="2"]
+[node name="Water" type="MeshInstance" parent="." index="2"]
 transform = Transform( 0.276521, 0, 0, 0, 1.60711, 0, 0, 0, 0.276521, -1.41217, -2.06831, -0.0267618 )
 mesh = SubResource( 2 )
-material/0 = ExtResource( 2 )
+material/0 = ExtResource( 3 )
+
+[node name="Camera" type="Camera" parent="." index="3"]
+transform = Transform( -0.0387541, 0.628224, -0.777067, 0, 0.777651, 0.628696, 0.999249, 0.0243646, -0.0301372, -8.45786, 5.35697, 0 )
+current = true
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="." index="4"]
+anims/Off = SubResource( 3 )
 

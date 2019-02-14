@@ -44,23 +44,27 @@ var Direction2d
 var Direction3d
 var RotLeft
 var RotRight
+var Body
+var Turn
 
 func _ready():
 	$CameraTarget/ThirdPerson/TPCamera.make_current()
 
 func _physics_process(delta):
 	
-	_rotation_process()
-	_movement_process(delta)
-	_root()
-	_shoot()
-	_climb()
-	
+	if not cutsceneIsPlaying:
+		_rotation_process()
+		_movement_process(delta)
+		_root()
+		_shoot()
+		_climb()
+		_looking_at()
+		
 	# You can only jump if you are touching the floor
-	if _get_normal().y > 0:
-		CanClimb = true
-	elif not IsRooted:
+	if _get_normal().y == 0:
 		_apply_gravity(delta)
+	else:
+		CanClimb = true
 
 func _apply_gravity(delta):
 	Velocity.y += delta * Gravity
@@ -233,3 +237,12 @@ func _climb_check():
 		return 1
 	else:
 		return 0
+		
+func _looking_at():
+	## Inputs
+	Turn = Input.is_action_pressed("Turn")
+	if $MeshInstance/FaceRay.is_colliding():
+		Body = $MeshInstance/FaceRay.get_collider()
+		if Body.get("TYPE") == "VALVE":
+			if Turn:
+				get_parent().get_node("Faucet")._close()
