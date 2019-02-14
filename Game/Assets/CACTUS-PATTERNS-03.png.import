@@ -2,13 +2,13 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.s3tc.stex"
-path.etc2="res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.etc2.stex"
+path.s3tc="res://.import/CACTUS-PATTERNS-03.png-401172461ffd3d74f3618f6e121e8688.s3tc.stex"
+path.etc2="res://.import/CACTUS-PATTERNS-03.png-401172461ffd3d74f3618f6e121e8688.etc2.stex"
 
 [deps]
 
-source_file="res://icon.png"
-dest_files=[ "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.s3tc.stex", "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.etc2.stex" ]
+source_file="res://Assets/CACTUS-PATTERNS-03.png"
+dest_files=[ "res://.import/CACTUS-PATTERNS-03.png-401172461ffd3d74f3618f6e121e8688.s3tc.stex", "res://.import/CACTUS-PATTERNS-03.png-401172461ffd3d74f3618f6e121e8688.etc2.stex" ]
 
 [params]
 

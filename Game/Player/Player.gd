@@ -64,7 +64,9 @@ func _physics_process(delta):
 	if _get_normal().y == 0:
 		_apply_gravity(delta)
 	else:
+		_apply_gravity(delta)
 		CanClimb = true
+	print(_get_normal().y)
 
 func _apply_gravity(delta):
 	Velocity.y += delta * Gravity
