@@ -70,7 +70,9 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-008, -1, 0, 1, -4.37114e-008, 0, 0,
 shape = SubResource( 2 )
 
 [node name="FloorRay" type="RayCast" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.951221, 0 )
+transform = Transform( 1, 0, 0, 0, 0.777893, 0.628397, 0, -0.628397, 0.777893, 0, -0.711128, 0.923179 )
+enabled = true
+cast_to = Vector3( 0, -1.59, 0 )
 collision_mask = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

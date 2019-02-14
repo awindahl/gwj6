@@ -5,6 +5,7 @@ const ACCELERATION = 0.5
 const DECELERATION = 0.5
 const MAXSLOPEANGLE = 60
 const JUMP = 20
+const TYPE = "PLAYER"
 
 # Assigned vars, export some of these
 export var Gravity = -70
@@ -26,6 +27,7 @@ var Pitch = 0
 var ViewSensitivity = 0.5
 var CanMoveMouse = false
 var IsClimbing = false
+var cutsceneIsPlaying = false
 
 # Indetermined vars
 var Up
@@ -43,6 +45,8 @@ var Direction3d
 var RotLeft
 var RotRight
 
+func _ready():
+	$CameraTarget/ThirdPerson/TPCamera.make_current()
 
 func _physics_process(delta):
 	
@@ -55,7 +59,7 @@ func _physics_process(delta):
 	# You can only jump if you are touching the floor
 	if _get_normal().y > 0:
 		CanClimb = true
-	else:
+	elif not IsRooted:
 		_apply_gravity(delta)
 
 func _apply_gravity(delta):
@@ -109,17 +113,17 @@ func _movement_process(delta):
 	# Set general direction vector in 2 dimensions, then translate to 3d to keep the player forward as "true forward"
 	Direction2d = Vector2()
 	Direction3d = Vector3()
-	if Up and not IsZoomed:
+	if Up and not IsZoomed and not cutsceneIsPlaying:
 		Direction2d.y += 1
 		$MeshInstance.rotation_degrees.y = 0
-	if Down and not IsZoomed:
+	if Down and not IsZoomed and not cutsceneIsPlaying:
 		Direction2d.y -= 1
 		$MeshInstance.rotation_degrees.y = 180
-	if Left:
+	if Left and not cutsceneIsPlaying:
 		Direction2d.x += 1
 		if not IsZoomed:
 			$MeshInstance.rotation_degrees.y = 90
-	if Right:
+	if Right and not cutsceneIsPlaying:
 		Direction2d.x -= 1
 		if not IsZoomed:
 			$MeshInstance.rotation_degrees.y = -90
@@ -144,7 +148,7 @@ func _movement_process(delta):
 	Velocity.z = hVel.z
 	
 	# Only move if camera is not rotating and not rooted and not zoomed
-	if not ShouldRotateRight and not ShouldRotateLeft and not IsRooted and (not IsZoomed or CanMoveMouse):
+	if not ShouldRotateRight and not ShouldRotateLeft and not IsRooted and (not IsZoomed or CanMoveMouse) and not cutsceneIsPlaying:
 		Velocity = move_and_slide(Velocity, _get_normal())
 		IsMoving = true
 	else:
@@ -165,12 +169,11 @@ func _shoot():
 		JustClick = Input.is_action_just_pressed("RightClick")
 		JustClickReleased = Input.is_action_just_released("RightClick")
 		
-	
 	## Handle switching between cameras
 	if $AnimationPlayer.is_playing() == false and IsZoomed == true:
 		$CameraTarget/Yaw/FPSCamera.make_current()
 		CanMoveMouse = true
-	else:
+	elif not IsZoomed and not cutsceneIsPlaying:
 		$CameraTarget/ThirdPerson/TPCamera.make_current()
 		CanMoveMouse = false
 	
