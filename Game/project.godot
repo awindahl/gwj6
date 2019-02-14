@@ -23,6 +23,15 @@ _global_script_class_icons={
 config/name="WildJam6"
 config/icon="res://icon.png"
 
+[autoload]
+
+transition="*res://Transition/transition.tscn"
+
+[display]
+
+window/size/height=576
+window/size/resizable=false
+
 [input]
 
 ui_accept={
