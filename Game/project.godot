@@ -27,6 +27,11 @@ config/icon="res://icon.png"
 
 transition="*res://Transition/transition.tscn"
 
+[display]
+
+window/size/height=576
+window/size/resizable=false
+
 [input]
 
 ui_accept={
