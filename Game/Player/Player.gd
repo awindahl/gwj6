@@ -3,12 +3,12 @@ extends KinematicBody
 # Constants
 const ACCELERATION = 0.5
 const DECELERATION = 0.5
-const MAXSLOPEANGLE = 15
+const MAXSLOPEANGLE = 0
 const JUMP = 20
 const TYPE = "PLAYER"
 
 # Assigned vars, export some of these
-export var Gravity = -70
+export var Gravity = -120
 export var WalkSpeed = 20
 export var NumberOfNeedles = 3
 
