@@ -4,11 +4,9 @@
 [ext_resource path="res://Assets/CactusModel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
 
-[sub_resource type="BoxShape" id=3]
-
+[sub_resource type="BoxShape" id=1]
 
 [sub_resource type="Animation" id=2]
-
 resource_name = "CameraMove"
 length = 0.5
 step = 0.05
@@ -41,7 +39,6 @@ tracks/1/keys = {
 script = ExtResource( 1 )
 
 [node name="MeshInstance" parent="." instance=ExtResource( 2 )]
-editor/display_folded = false
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.51494, 0 )
 
 [node name="ClimbRays" type="Spatial" parent="MeshInstance"]
@@ -65,7 +62,7 @@ cast_to = Vector3( 0, 0, 0.64 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -7.21435e-008, -1.65045, 0, 1, -4.37114e-008, 0, 0.490923, 0 )
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 
 [node name="FloorRay" type="RayCast" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00401306, -1.06637, -0.00925076 )

@@ -28,6 +28,7 @@ var ViewSensitivity = 0.5
 var CanMoveMouse = false
 var IsClimbing = false
 var cutsceneIsPlaying = false
+var canRoot = true
 
 # Indetermined vars
 var Up
@@ -66,7 +67,7 @@ func _physics_process(delta):
 	else:
 		_apply_gravity(delta)
 		CanClimb = true
-	print(_get_normal().y)
+	#print(_get_normal().y)
 
 func _apply_gravity(delta):
 	Velocity.y += delta * Gravity
@@ -165,7 +166,7 @@ func _root():
 	Space = Input.is_action_just_pressed("Space")
 	if Space and IsRooted:
 		IsRooted = false
-	elif Space and not IsRooted and not ShouldRotateLeft and not ShouldRotateRight and not IsZoomed and not IsClimbing:
+	elif Space and not IsRooted and not ShouldRotateLeft and not ShouldRotateRight and not IsZoomed and not IsClimbing and canRoot:
 		IsRooted = true
 	
 func _shoot():

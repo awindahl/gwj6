@@ -2,6 +2,7 @@ extends Spatial
 
 onready var water = get_node("waterBody")
 onready var faucet = get_node("faucet")
+onready var player = get_node("Player")
 var faucet_pos
 var water_pos
 var gameOver = false
@@ -23,6 +24,7 @@ func _process(delta):
 
 
 func _raiseWater():
+	pass
 	water.translate(Vector3(0,0.001,0))
 	
 func _lowerWater():
@@ -39,3 +41,12 @@ func _checkGameCondition():
 	if water.translation.y > waterFinalHeight:
 		#cacti drowns
 		gameOver = true
+
+func _on_waterBody_body_entered(body):
+	if body == player:
+		player.canRoot = false
+
+
+func _on_waterBody_body_exited(body):
+	if body == player:
+		player.canRoot = true
