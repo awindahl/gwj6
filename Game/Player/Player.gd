@@ -3,7 +3,7 @@ extends KinematicBody
 # Constants
 const ACCELERATION = 0.5
 const DECELERATION = 0.5
-const MAXSLOPEANGLE = 60
+const MAXSLOPEANGLE = 15
 const JUMP = 20
 const TYPE = "PLAYER"
 
@@ -18,7 +18,7 @@ var CanClimb = true
 var NewAngle = 0
 var ShouldRotateLeft = false
 var ShouldRotateRight = false
-var IsRooted = true
+var IsRooted = false
 var Needle = preload ("res://Player/Needle.tscn")
 var IsZoomed = false
 var IsMoving = false
@@ -62,12 +62,12 @@ func _physics_process(delta):
 		_looking_at()
 		
 	# You can only jump if you are touching the floor
-	if _get_normal().y == 0:
+	if not $FloorRay.is_colliding():
 		_apply_gravity(delta)
+	elif IsRooted:
+		Velocity.y = 0
 	else:
-		_apply_gravity(delta)
-		CanClimb = true
-	#print(_get_normal().y)
+		pass
 
 func _apply_gravity(delta):
 	Velocity.y += delta * Gravity
@@ -156,7 +156,7 @@ func _movement_process(delta):
 	
 	# Only move if camera is not rotating and not rooted and not zoomed
 	if not ShouldRotateRight and not ShouldRotateLeft and not IsRooted and (not IsZoomed or CanMoveMouse) and not cutsceneIsPlaying:
-		Velocity = move_and_slide(Velocity, _get_normal())
+		Velocity = move_and_slide(Velocity, _get_normal(), 0.05, 4 ,deg2rad(MAXSLOPEANGLE))
 		IsMoving = true
 	else:
 		IsMoving = false

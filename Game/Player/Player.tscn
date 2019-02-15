@@ -67,7 +67,7 @@ transform = Transform( 1, 0, 0, 0, -7.21435e-008, -1.65045, 0, 1, -4.37114e-008,
 shape = SubResource( 1 )
 
 [node name="FloorRay" type="RayCast" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00401306, -1.06637, -0.00925076 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00401306, -0.0283141, -0.00925076 )
 enabled = true
 cast_to = Vector3( 0, -1.59, 0 )
 
