@@ -205,7 +205,7 @@ func _shoot():
 		Click = Input.is_action_just_pressed("LeftClick")
 		if Click:
 			var NewNeedle = Needle.instance()
-			get_tree().root.get_children()[0].add_child(NewNeedle)
+			get_parent().add_child(NewNeedle)
 			NewNeedle.global_transform = $CameraTarget/Yaw/FPSCamera/RayCast.global_transform
 	
 func _unhandled_input(event):
