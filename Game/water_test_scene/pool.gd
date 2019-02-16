@@ -1,6 +1,7 @@
-extends RigidBody
+extends Area
 
 onready var water = get_parent().get_node("waterBody")
+onready var player = get_parent().get_node("Player")
 var sinking = false
 
 func _ready():
@@ -13,3 +14,13 @@ func _process(delta):
 
 	if sinking:
 		self.translate(Vector3(0,-0.05,0))
+	#print(str(get_overlapping_bodies()))
+
+func _on_pool_body_entered(body):
+	if body == player:
+		player.canRoot = false
+
+
+func _on_pool_body_exited(body):
+	if body == player:
+		player.canRoot = true
