@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Interluder.wav-5124141971bf9cbdfe3b6f6d824a6cfd.sample"
+
+[deps]
+
+source_file="res://Assets/music/Interluder.wav"
+dest_files=[ "res://.import/Interluder.wav-5124141971bf9cbdfe3b6f6d824a6cfd.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

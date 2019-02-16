@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Violin and Piano.wav-325c513b37d32828b6df29e0fcbc6516.sample"
+
+[deps]
+
+source_file="res://Assets/music/Violin and Piano.wav"
+dest_files=[ "res://.import/Violin and Piano.wav-325c513b37d32828b6df29e0fcbc6516.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
