@@ -20,7 +20,8 @@
 [ext_resource path="res://Levels/Level Mechanics/Faucet.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Levels/Level Mechanics/Valve.tscn" type="PackedScene" id=19]
 [ext_resource path="res://Assets/lowPolyObjectPack/Goalpost.tscn" type="PackedScene" id=20]
-[ext_resource path="res://Assets/bandit/Bandit.tscn" type="PackedScene" id=21]
+[ext_resource path="res://Assets/bandit/enemyPath1.tres" type="Curve3D" id=21]
+[ext_resource path="res://Assets/bandit/Bandit.tscn" type="PackedScene" id=22]
 
 [sub_resource type="ProceduralSky" id=1]
 
@@ -57,13 +58,6 @@ size = Vector3( 1000, 2, 1000 )
 [sub_resource type="ConcavePolygonShape" id=5]
 
 data = PoolVector3Array( -500, 1, 500, 500, 1, 500, -500, -1, 500, 500, 1, 500, 500, -1, 500, -500, -1, 500, 500, 1, -500, -500, 1, -500, 500, -1, -500, -500, 1, -500, -500, -1, -500, 500, -1, -500, 500, 1, 500, 500, 1, -500, 500, -1, 500, 500, 1, -500, 500, -1, -500, 500, -1, 500, -500, 1, -500, -500, 1, 500, -500, -1, -500, -500, 1, 500, -500, -1, 500, -500, -1, -500, 500, 1, 500, -500, 1, 500, 500, 1, -500, -500, 1, 500, -500, 1, -500, 500, 1, -500, -500, -1, 500, 500, -1, 500, -500, -1, -500, 500, -1, 500, 500, -1, -500, -500, -1, -500 )
-
-[sub_resource type="Curve3D" id=6]
-
-_data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -6.94802, -0.232651, 7.69826, 0, 0, 0, 0, 0, 0, -13.7793, -0.827518, 3.60544, 0, 0, 0, 0, 0, 0, -0.753026, 0.527575, 1.66216, 0, 0, 0, 0, 0, 0, 10.1405, 0.422627, 2.70943, 0, 0, 0, 0, 0, 0, 3.57854, 0.721655, 9.67147, 0, 0, 0, 0, 0, 0, -0.882276, -0.242901, 10.6787, 0, 0, 0, 0, 0, 0, -6.45383, -0.668345, 8.29087, 0, 0, 0, 0, 0, 0, -6.94802, -0.232651, 7.69826 ),
-"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0 )
-}
 
 [node name="Level1" type="Spatial"]
 script = ExtResource( 1 )
@@ -500,11 +494,13 @@ transform = Transform( 0.978941, 0, -0.204141, 0, 1, 0, 0.204141, 0, 0.978941, 3
 
 [node name="Path" type="Path" parent="Enemies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.44681, 5.06305, 0 )
-curve = SubResource( 6 )
+curve = ExtResource( 21 )
 
 [node name="PathFollow" type="PathFollow" parent="Enemies/Path"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0875177, 0 )
 rotation_mode = 4
 
-[node name="Bandit" parent="Enemies/Path/PathFollow" instance=ExtResource( 21 )]
+[node name="Bandit" parent="Enemies/Path/PathFollow" instance=ExtResource( 22 )]
+FOV = 120.0
+DETECT_RADIUS = 45.0
 
