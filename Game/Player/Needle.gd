@@ -11,7 +11,7 @@ var GunRay
 var forward_dir
 
 func _ready():
-	#$Area.connect("body_entered", self, "_collided")
+	$Area.connect("body_entered", self, "_collided")
 	forward_dir = get_parent().get_node("Player/CameraTarget/Yaw/FPSCamera/RayCast").get_global_transform().basis.z.normalized()
 
 func _physics_process(delta):
@@ -22,10 +22,10 @@ func _physics_process(delta):
 		pass
 
 func _collided(body):
-	if hit_something == false:
-		if body.has_method("_bullet_hit"):
-			body.bullet_hit(BULLET_DAMAGE, self.global_transform.origin)
-	
-	hit_something = true
-	#queue_free()
+	if body.get("TYPE") != "PLAYER" and body.get("TYPE") != "ENEMY":
+		queue_free()
 	pass
+
+func _on_Area_body_entered(body):
+	if body.get("TYPE") == "ENEMY":
+		body._bullet_hit()

@@ -18,7 +18,6 @@ func _process(delta):
 
 func _on_pool_body_entered(body):
 	if body.get("TYPE") == "PLAYER":
-		print("AA")
 		player.canRoot = false
 
 func _on_pool_body_exited(body):

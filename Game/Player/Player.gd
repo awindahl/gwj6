@@ -275,7 +275,6 @@ func _looking_at():
 	Turn = Input.is_action_pressed("Turn")
 	if $MeshInstance/FaceRay.is_colliding():
 		Body = $MeshInstance/FaceRay.get_collider()
-		print("AY")
 		if Body.get("TYPE") == "VALVE":
 			if Turn:
 				get_parent().get_node("Mechanics/Faucet")._close()
