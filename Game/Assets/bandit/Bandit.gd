@@ -7,11 +7,10 @@ var was_player_rooted : = false
 enum {STATE_PATROL, STATE_ATTACK}
 var state = STATE_PATROL
 var shooting = false
-var LastRot : Vector3
 export var SPEED : = 3.0
 export var FOV : = 90.0
 export var DETECT_RADIUS : = 20.0
-export var DETECT_ROOTED_RADIUS : = 3.0
+export var DETECT_ROOTED_RADIUS : = 5.0
 export var BULLET_FORCE = 5.0
 
 onready var level : Node = get_tree().get_root().get_node("TestLevel")
@@ -25,15 +24,19 @@ onready var path_follow = get_parent()
 func _physics_process(delta) -> void:
 	var player_distance = can_see_entity(player)
 	var player_found_yet = not is_nan(player_distance)
+	if player.IsRooted:
+		player_found_yet = player_found_yet and player_distance < DETECT_ROOTED_RADIUS
+		
 	if state == STATE_PATROL:
 		$GunTimer.stop()
 		shooting = false
 		if player_found_yet and not player_found:
-			if player.IsRooted and player_distance < DETECT_ROOTED_RADIUS:
+			if player.IsRooted:
 				print("Hey...something's quite not right here!")
-			else:
+				state = STATE_ATTACK
+			elif not player.IsRooted:
 				print("Stop right there criminal scum!")
-			state = STATE_ATTACK
+				state = STATE_ATTACK
 		
 		# Enables guard to follow path
 		if not player_found_yet:
@@ -61,8 +64,6 @@ func _physics_process(delta) -> void:
 			print("I can still see you...")
 		elif not player_found_yet and player_found:
 			print("Must have been the wind...")
-			
-		if not player_found_yet:
 			state = STATE_PATROL
 		
 	player_found = player_found_yet

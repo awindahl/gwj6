@@ -141,7 +141,7 @@ func _movement_process(delta):
 	
 	if not Up and not Down and not Left and not Right:
 		IsMoving = false
-		Velocity = Vector3(0,0,0)
+		#Velocity = Vector3(0,0,0)
 		if temp == 0:
 			isPlaying = false
 			_play_anim("idle_anim")
