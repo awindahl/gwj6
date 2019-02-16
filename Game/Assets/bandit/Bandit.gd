@@ -13,8 +13,7 @@ export var DETECT_RADIUS : = 20.0
 export var DETECT_ROOTED_RADIUS : = 5.0
 export var BULLET_FORCE = 5.0
 
-onready var level : Node = get_tree().get_root().get_node("TestLevel")
-onready var player : KinematicBody = level.get_node("Player")
+onready var player : KinematicBody = get_parent().get_parent().get_parent().get_node("Player")
 onready var path_follow = get_parent()
 
 #func initialise(_level : Node, _player : KinematicBody) -> void:

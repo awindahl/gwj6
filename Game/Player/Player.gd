@@ -3,12 +3,12 @@ extends KinematicBody
 # Constants
 const ACCELERATION = 0.5
 const DECELERATION = 0.5
-const MAXSLOPEANGLE = 0
+const MAXSLOPEANGLE = 30
 const JUMP = 20
 const TYPE = "PLAYER"
 
 # Assigned vars, export some of these
-export var Gravity = -120
+export var Gravity = -40
 export var WalkSpeed = 10
 export var NumberOfNeedles = 3
 export var IsRooted = true
@@ -66,7 +66,7 @@ func _physics_process(delta):
 	# You can only jump if you are touching the floor
 	if not $FloorRay.is_colliding():
 		_apply_gravity(delta)
-	if IsRooted or IsZoomed:
+	if IsRooted:
 		Velocity.y = 0
 	
 func _apply_gravity(delta):
@@ -181,7 +181,7 @@ func _root():
 	Space = Input.is_action_just_pressed("Space")
 	if Space and IsRooted:
 		IsRooted = false
-	elif Space and not IsRooted and not ShouldRotateLeft and not ShouldRotateRight and not IsZoomed and not IsClimbing and canRoot:
+	elif Space and not IsRooted and not ShouldRotateLeft and not ShouldRotateRight and not IsZoomed and not IsClimbing and canRoot and $FloorRay.is_colliding():
 		IsRooted = true
 	
 func _shoot():
@@ -255,7 +255,7 @@ func _climb():
 		_play_anim("climb_anim")
 		IsMoving = true
 		temp = 1
-		Velocity.y += 23
+		Velocity.y += 10
 		Velocity += global_transform.basis.z.normalized() * Direction2d.y
 		Velocity += global_transform.basis.x.normalized() * Direction2d.x
 
@@ -275,9 +275,10 @@ func _looking_at():
 	Turn = Input.is_action_pressed("Turn")
 	if $MeshInstance/FaceRay.is_colliding():
 		Body = $MeshInstance/FaceRay.get_collider()
+		print("AY")
 		if Body.get("TYPE") == "VALVE":
 			if Turn:
-				get_parent().get_node("Faucet")._close()
+				get_parent().get_node("Mechanics/Faucet")._close()
 
 func _play_anim(anim):
 	if not isPlaying:

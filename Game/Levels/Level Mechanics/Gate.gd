@@ -13,4 +13,4 @@ func _open():
 		temp = 1
 
 func _done():
-	get_parent().get_node("Player").cutsceneIsPlaying = false
+	get_parent().get_parent().get_node("Player").cutsceneIsPlaying = false
