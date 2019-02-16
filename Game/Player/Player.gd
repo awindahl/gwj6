@@ -11,6 +11,7 @@ const TYPE = "PLAYER"
 export var Gravity = -70
 export var WalkSpeed = 20
 export var NumberOfNeedles = 3
+export var IsRooted = true
 
 var MoveSpeed = WalkSpeed
 var Velocity = Vector3()
@@ -18,7 +19,6 @@ var CanClimb = true
 var NewAngle = 0
 var ShouldRotateLeft = false
 var ShouldRotateRight = false
-var IsRooted = true
 var Needle = preload ("res://Player/Needle.tscn")
 var IsZoomed = false
 var IsMoving = false
@@ -233,3 +233,8 @@ func _climb_check():
 		return 1
 	else:
 		return 0
+
+func knockback(source : Spatial, force : float) -> void:
+	var direction = global_transform.origin - source.global_transform.origin
+	Velocity += direction*force
+	

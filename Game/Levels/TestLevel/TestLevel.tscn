@@ -45,3 +45,6 @@ rotation_mode = 4
 [node name="Bandit" parent="Path/PathFollow" instance=ExtResource( 5 )]
 script = ExtResource( 6 )
 
+[node name="GunTimer" type="Timer" parent="Path/PathFollow/Bandit"]
+
+[connection signal="timeout" from="Path/PathFollow/Bandit/GunTimer" to="Path/PathFollow/Bandit" method="_on_Timer_timeout"]
