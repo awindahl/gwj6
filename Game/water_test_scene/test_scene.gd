@@ -22,7 +22,6 @@ func _process(delta):
 	else:
 		_raiseWater()
 
-
 func _raiseWater():
 	pass
 	water.translate(Vector3(0,0.001,0))

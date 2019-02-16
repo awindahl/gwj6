@@ -16,3 +16,4 @@ func _on_Area_body_entered(body):
 			body.cutsceneIsPlaying = true
 			get_parent().get_node("Gate" + var2str(connectedTo))._open()
 			temp = 1
+			
