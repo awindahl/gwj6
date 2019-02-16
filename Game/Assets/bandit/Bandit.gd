@@ -10,8 +10,7 @@ export var SPEED : = 3.0
 export var FOV : = 90
 export var DETECT_RADIUS : = 20
 
-onready var level : Node = get_tree().get_root().get_node("TestLevel")
-onready var player : KinematicBody = level.get_node("Player")
+onready var player : KinematicBody = get_parent().get_parent().get_parent().get_node("Player")
 onready var path_follow = get_parent()
 
 signal player_found

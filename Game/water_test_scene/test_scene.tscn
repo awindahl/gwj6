@@ -1,10 +1,10 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://water_test_scene/test_scene.gd" type="Script" id=1]
 [ext_resource path="res://water_test_scene/assets/goegap_1k.hdr" type="Texture" id=2]
 [ext_resource path="res://water_test_scene/level.tscn" type="PackedScene" id=3]
 [ext_resource path="res://water_test_scene/faucet.tscn" type="PackedScene" id=4]
-[ext_resource path="res://water_test_scene/waterMaterial.tres" type="Material" id=5]
+[ext_resource path="res://water_test_scene/waterBody.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=6]
 [ext_resource path="res://water_test_scene/pool.tscn" type="PackedScene" id=7]
 
@@ -19,16 +19,6 @@ background_sky = SubResource( 1 )
 background_energy = 1.65
 glow_intensity = 0.0
 
-[sub_resource type="PlaneMesh" id=3]
-
-material = ExtResource( 5 )
-size = Vector2( 35, 35 )
-subdivide_width = 50
-subdivide_depth = 50
-
-[sub_resource type="BoxShape" id=4]
-
-
 [node name="test_scene" type="Spatial"]
 script = ExtResource( 1 )
 
@@ -41,18 +31,7 @@ transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0 )
 [node name="faucet" parent="." instance=ExtResource( 4 )]
 transform = Transform( 0.00729334, 0.00314576, -0.694628, 0.0317912, 0.693936, 0.00347643, 0.693907, -0.0318256, 0.00714164, 4.145, 3.05335, 79.2938 )
 
-[node name="waterBody" type="Area" parent="."]
-transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, -0.321953, 0 )
-collision_layer = 2
-collision_mask = 2
-
-[node name="water" type="MeshInstance" parent="waterBody"]
-mesh = SubResource( 3 )
-material/0 = ExtResource( 5 )
-
-[node name="CollisionShape" type="CollisionShape" parent="waterBody"]
-transform = Transform( 17.4953, 0, 0, 0, 3.25567, 0, 0, 0, 16.8279, 0, -3.16974, 0 )
-shape = SubResource( 4 )
+[node name="waterBody" parent="." instance=ExtResource( 5 )]
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( -3.2374e-008, -0.671913, 0.74063, -2.93702e-008, 0.74063, 0.671913, -1, 1.24345e-014, -4.37113e-008, 12.4149, 8.04903, 10.4261 )
@@ -64,5 +43,3 @@ collision_mask = 2
 [node name="pool" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.6596, 3.03423, 16.6778 )
 
-[connection signal="body_entered" from="waterBody" to="." method="_on_waterBody_body_entered"]
-[connection signal="body_exited" from="waterBody" to="." method="_on_waterBody_body_exited"]

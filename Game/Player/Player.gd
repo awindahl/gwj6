@@ -3,12 +3,12 @@ extends KinematicBody
 # Constants
 const ACCELERATION = 0.5
 const DECELERATION = 0.5
-const MAXSLOPEANGLE = 0
+const MAXSLOPEANGLE = 30
 const JUMP = 20
 const TYPE = "PLAYER"
 
 # Assigned vars, export some of these
-export var Gravity = -120
+export var Gravity = -40
 export var WalkSpeed = 10
 export var NumberOfNeedles = 3
 
@@ -148,7 +148,6 @@ func _movement_process(delta):
 			temp = 1
 	
 	if IsMoving and temp == 1 and not IsRooted:
-		print("yeah im moving")
 		isPlaying = false
 		temp = 0
 		_play_anim("walk_anim")
@@ -182,7 +181,7 @@ func _root():
 	Space = Input.is_action_just_pressed("Space")
 	if Space and IsRooted:
 		IsRooted = false
-	elif Space and not IsRooted and not ShouldRotateLeft and not ShouldRotateRight and not IsZoomed and not IsClimbing and canRoot:
+	elif Space and not IsRooted and not ShouldRotateLeft and not ShouldRotateRight and not IsZoomed and not IsClimbing and canRoot and $FloorRay.is_colliding():
 		IsRooted = true
 	
 func _shoot():
@@ -208,7 +207,6 @@ func _shoot():
 		$CameraTarget/Yaw/FPSCamera/Crosshair.visible = true
 		
 	if JustClickReleased:
-		print("aa")
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		$AnimationPlayer.play_backwards("CameraMove")
 		IsZoomed = false
@@ -257,7 +255,7 @@ func _climb():
 		_play_anim("climb_anim")
 		IsMoving = true
 		temp = 1
-		Velocity.y += 23
+		Velocity.y += 10
 		Velocity += global_transform.basis.z.normalized() * Direction2d.y
 		Velocity += global_transform.basis.x.normalized() * Direction2d.x
 
