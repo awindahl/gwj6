@@ -168,7 +168,6 @@ func _movement_process(delta):
 			if waterFinished:
 				$water_walk.stop()
 	
-	
 	Direction2d = Direction2d.normalized()
 	Direction3d += global_transform.basis.z.normalized() * Direction2d.y
 	Direction3d += global_transform.basis.x.normalized() * Direction2d.x

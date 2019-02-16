@@ -1,10 +1,11 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Levels/Level Mechanics/Gate.gd" type="Script" id=1]
-
 [ext_resource path="res://Assets/lowPolyObjectPack/Gate.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/sounds/discovery1.wav" type="AudioStream" id=3]
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=1]
+
 resource_name = "Lower"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Camera:current")
@@ -56,14 +57,18 @@ transform = Transform( 1, 0, 0, 0, 0.771303, 0.636468, 0, -0.636468, 0.771303, -
 current = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Lower = SubResource( 3 )
+anims/Lower = SubResource( 1 )
 
 [node name="Scene Root" parent="." instance=ExtResource( 2 )]
+editor/display_folded = true
 transform = Transform( 2, 0, 0, 0, 1.49, 0, 0, 0, 1.67, -8.53953, -5.85855, 0 )
 
 [node name="StaticBody" type="StaticBody" parent="Scene Root"]
 transform = Transform( 4.31295, 0, 0, 0, 4.12459, 0, 0, 0, 0.148956, 4.26976, 3.68283, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Scene Root/StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 2 )
+
+[node name="off" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
