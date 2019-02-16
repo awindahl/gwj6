@@ -10,9 +10,9 @@ enum {STATE_PATROL, STATE_ATTACK}
 var state = STATE_PATROL
 var shooting = false
 export var SPEED : = 3.0
-export var FOV : = 90.0
+export var FOV : = 140.0
 var isAlive = true
-export var DETECT_RADIUS : = 30.0
+export var DETECT_RADIUS : = 60.0
 export var DETECT_ROOTED_RADIUS : = 5.0
 export var BULLET_FORCE = 5.0
 
@@ -47,7 +47,6 @@ func _physics_process(delta) -> void:
 			# Rotate to player to shoot
 			if player_found_yet:
 				$AnimationPlayer.stop(true)
-				DETECT_RADIUS = 50
 				var LastRot = path_follow.rotation_degrees
 				var value = 0.2
 				value += delta
@@ -69,7 +68,6 @@ func _physics_process(delta) -> void:
 			if not player_found_yet and player_found:
 				print("Must have been the wind...")
 				$AnimationPlayer.play("walk-loop")
-				DETECT_RADIUS = 30
 				state = STATE_PATROL
 			
 		player_found = player_found_yet
@@ -93,8 +91,9 @@ func shoot(entity) -> void:
 	entity.knockback(self, BULLET_FORCE)
 
 func _on_GunTimer_timeout():
-	shoot(player)
-	shooting = false
+	if player.isAlive:
+		shoot(player)
+		shooting = false
 
 func _bullet_hit():
 	if isAlive:

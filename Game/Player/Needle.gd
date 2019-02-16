@@ -1,13 +1,9 @@
 extends Spatial
 
 var BULLET_SPEED = 70
-var BULLET_DAMAGE = 15
 
 const KILL_TIMER = 4
 var timer = 0
-
-var hit_something = false
-var GunRay
 var forward_dir
 
 func _ready():
@@ -22,7 +18,7 @@ func _physics_process(delta):
 		pass
 
 func _collided(body):
-	if body.get("TYPE") != "PLAYER" and body.get("TYPE") != "ENEMY":
+	if body.get("TYPE") != "PLAYER":
 		queue_free()
 	pass
 

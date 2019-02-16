@@ -10,8 +10,9 @@ const TYPE = "PLAYER"
 # Assigned vars, export some of these
 export var Gravity = -40
 export var WalkSpeed = 10
-export var NumberOfNeedles = 3
+export var NumberOfNeedles = 1
 export var IsRooted = true
+export var health = 2
 
 var MoveSpeed = WalkSpeed
 var Velocity = Vector3()
@@ -30,6 +31,7 @@ var IsClimbing = false
 var cutsceneIsPlaying = false
 var canRoot = true
 var temp = 0
+var isAlive = true
 
 # Indetermined vars
 var Up
@@ -55,20 +57,22 @@ func _ready():
 
 func _physics_process(delta):
 	
-	if not cutsceneIsPlaying:
-		_rotation_process()
-		_movement_process(delta)
-		_root()
-		_shoot()
-		_climb()
-		_looking_at()
+	if isAlive:
 		
-	# You can only jump if you are touching the floor
+		if not cutsceneIsPlaying:
+			_rotation_process()
+			_movement_process(delta)
+			_root()
+			_shoot()
+			_climb()
+			_looking_at()
+			
+		# You can only jump if you are touching the floor
 	if not $FloorRay.is_colliding():
 		_apply_gravity(delta)
 	if IsRooted:
 		Velocity.y = 0
-	
+
 func _apply_gravity(delta):
 	Velocity.y += delta * Gravity
 
@@ -223,7 +227,8 @@ func _shoot():
 		Click = Input.is_action_just_pressed("LeftClick")
 		$CameraTarget/Yaw/FPSCamera/Arm.visible = true
 		$MeshInstance.visible = false
-		if Click:
+		if Click and NumberOfNeedles != 0:
+			NumberOfNeedles -= 1
 			var NewNeedle = Needle.instance()
 			get_parent().add_child(NewNeedle)
 			NewNeedle.global_transform = $CameraTarget/Yaw/FPSCamera/RayCast.global_transform
@@ -268,8 +273,15 @@ func _climb_check():
 func knockback(source : Spatial, force : float) -> void:
 	var direction = global_transform.origin - source.global_transform.origin
 	Velocity += direction*force
-    
-		
+	health -= 1
+	if health == 0:
+		_die()
+
+func _die():
+	$MeshInstance/AnimationPlayer.play("death_anim")
+	isAlive = false
+	
+
 func _looking_at():
 	## Inputs
 	Turn = Input.is_action_pressed("Turn")

@@ -490,7 +490,7 @@ transform = Transform( 0.978941, 0, -0.204141, 0, 1, 0, 0.204141, 0, 0.978941, 3
 [node name="Enemies" type="Node" parent="."]
 
 [node name="Path" type="Path" parent="Enemies"]
-transform = Transform( 0.571528, 0, 0.820582, 0, 1, 0, -0.820582, 0, 0.571528, -6.88007, 5.06305, 18.7197 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.88007, 5.06305, -2.19652 )
 curve = ExtResource( 21 )
 
 [node name="PathFollow" type="PathFollow" parent="Enemies/Path"]
@@ -498,6 +498,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0875177, 0 )
 rotation_mode = 4
 
 [node name="Bandit" parent="Enemies/Path/PathFollow" instance=ExtResource( 22 )]
-FOV = 120.0
-DETECT_RADIUS = 45.0
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.614965, 0 )
 

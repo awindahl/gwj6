@@ -1638,9 +1638,9 @@ anims/shoot = SubResource( 4 )
 anims/walk-loop = SubResource( 5 )
 
 [node name="RayCast" type="RayCast" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.996775, -0.0802436, 0, 0.0802436, 0.996775, 0, 2.58949, 0.0877261 )
+transform = Transform( 1, 0, 0, 0, 0.996775, -0.0802436, 0, 0.0802436, 0.996775, 0, 0.301092, 1.1341 )
 enabled = true
-cast_to = Vector3( 0, -2.95, 22.17 )
+cast_to = Vector3( 0, 23.39, 34.01 )
 
 [node name="GunTimer" type="Timer" parent="."]
 autostart = true
@@ -1648,5 +1648,9 @@ autostart = true
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1.33451, 0, 0, 0, -5.57347e-008, -1.27506, 0, 1.29405, -5.65649e-008, 0, 2.432, 0 )
 shape = SubResource( 7 )
+
+[node name="ResetTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
 
 [connection signal="timeout" from="GunTimer" to="." method="_on_GunTimer_timeout"]
