@@ -15,6 +15,7 @@ script = ExtResource( 2 )
 [node name="CollisionShape" type="CollisionShape" parent="metarig/Skeleton/Cube/StaticBody" index="0"]
 shape = SubResource( 1 )
 
+
 [node name="RayCast" type="RayCast" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 0.996775, -0.0802436, 0, 0.0802436, 0.996775, 0, 0.704159, 0 )
 enabled = true
