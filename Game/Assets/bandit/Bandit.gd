@@ -35,9 +35,16 @@ func _physics_process(delta) -> void:
 			if player_found_yet and not player_found:
 				if player.IsRooted:
 					print("Hey...something's quite not right here!")
+					match randi()%2+1:
+						1:
+							$huh1.play(0)
+						2:
+							$huh2.play(0)
+							
 					state = STATE_ATTACK
 				elif not player.IsRooted:
 					print("Stop right there criminal scum!")
+					$spotted.play(0)
 					state = STATE_ATTACK
 			
 			# Enables guard to follow path
@@ -67,6 +74,7 @@ func _physics_process(delta) -> void:
 				print("I can still see you...")
 			if not player_found_yet and player_found:
 				print("Must have been the wind...")
+				$wind.play(0)
 				$AnimationPlayer.play("walk-loop")
 				state = STATE_PATROL
 			
@@ -88,6 +96,7 @@ func can_see_entity(entity) -> float:
 
 func shoot(entity) -> void:
 	$AnimationPlayer.play("shoot")
+	$shoot2.play(0)
 	entity.knockback(self, BULLET_FORCE)
 
 func _on_GunTimer_timeout():
@@ -99,4 +108,5 @@ func _bullet_hit():
 	if isAlive:
 		isAlive = false
 		$AnimationPlayer.play("die")
+		$hurt.play(0)
 		$CollisionShape.disabled = true

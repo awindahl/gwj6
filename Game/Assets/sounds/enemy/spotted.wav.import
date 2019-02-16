@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/spotted.wav-19cff016863159b1ea08445c8b7cb344.sample"
+
+[deps]
+
+source_file="res://Assets/sounds/enemy/spotted.wav"
+dest_files=[ "res://.import/spotted.wav-19cff016863159b1ea08445c8b7cb344.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

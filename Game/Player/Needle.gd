@@ -18,10 +18,12 @@ func _physics_process(delta):
 		pass
 
 func _collided(body):
+	$hit.play(0)
 	if body.get("TYPE") != "PLAYER":
 		queue_free()
 	pass
 
 func _on_Area_body_entered(body):
+	$hit.play(0)
 	if body.get("TYPE") == "ENEMY":
 		body._bullet_hit()

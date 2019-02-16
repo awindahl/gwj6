@@ -4,15 +4,16 @@
 [ext_resource path="res://Assets/CactusModel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
 [ext_resource path="res://Assets/ArmModel.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Assets/ArchitectsDaughter32.tres" type="DynamicFont" id=5]
-[ext_resource path="res://Assets/UIfruit.png" type="Texture" id=6]
-[ext_resource path="res://Assets/UIneedle.png" type="Texture" id=7]
+[ext_resource path="res://Assets/sounds/cactus/water_step.wav" type="AudioStream" id=5]
+[ext_resource path="res://Assets/sounds/cactus/hurt.wav" type="AudioStream" id=6]
+[ext_resource path="res://Assets/sounds/cactus/dart_blow.wav" type="AudioStream" id=7]
+[ext_resource path="res://Assets/ArchitectsDaughter32.tres" type="DynamicFont" id=8]
+[ext_resource path="res://Assets/UIfruit.png" type="Texture" id=9]
+[ext_resource path="res://Assets/UIneedle.png" type="Texture" id=10]
 
 [sub_resource type="BoxShape" id=1]
 
-
 [sub_resource type="Animation" id=2]
-
 resource_name = "CameraMove"
 length = 0.5
 step = 0.05
@@ -109,6 +110,25 @@ current = true
 fov = 80.0
 far = 2048.0
 
+
+[node name="water_walk" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -30.0
+
+[node name="hurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -20.0
+
+[node name="root" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -20.0
+
+[node name="shoot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -20.0
+
+[connection signal="finished" from="water_walk" to="." method="_on_water_walk_finished"]
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
@@ -116,7 +136,7 @@ margin_left = 25.3158
 margin_top = 517.368
 margin_right = 158.316
 margin_bottom = 574.368
-custom_fonts/normal_font = ExtResource( 5 )
+custom_fonts/normal_font = ExtResource( 8 )
 text = "Ammo"
 scroll_active = false
 
@@ -125,37 +145,38 @@ margin_left = 351.632
 margin_top = 517.895
 margin_right = 484.632
 margin_bottom = 574.895
-custom_fonts/normal_font = ExtResource( 5 )
+custom_fonts/normal_font = ExtResource( 8 )
 text = "Health"
 scroll_active = false
 
 [node name="Health1" type="Sprite" parent="CanvasLayer"]
 position = Vector2( 516.992, 539.617 )
 scale = Vector2( 0.107429, 0.107429 )
-texture = ExtResource( 6 )
+texture = ExtResource( 9 )
 
 [node name="Health2" type="Sprite" parent="CanvasLayer"]
 position = Vector2( 577.008, 539.617 )
 scale = Vector2( 0.107429, 0.107429 )
-texture = ExtResource( 6 )
+texture = ExtResource( 9 )
 
 [node name="Needle1" type="Sprite" parent="CanvasLayer"]
 position = Vector2( 165.716, 539.617 )
 scale = Vector2( 0.107429, 0.107429 )
-texture = ExtResource( 7 )
+texture = ExtResource( 10 )
 
 [node name="Needle2" type="Sprite" parent="CanvasLayer"]
 position = Vector2( 219.716, 539.617 )
 scale = Vector2( 0.107429, 0.107429 )
-texture = ExtResource( 7 )
+texture = ExtResource( 10 )
 
 [node name="Needle3" type="Sprite" parent="CanvasLayer"]
 position = Vector2( 276.716, 539.617 )
 scale = Vector2( 0.107429, 0.107429 )
-texture = ExtResource( 7 )
+texture = ExtResource( 10 )
 
 [node name="AmmoRefresh" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
 
 [connection signal="timeout" from="AmmoRefresh" to="." method="_on_AmmoRefresh_timeout"]
+

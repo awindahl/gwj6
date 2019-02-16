@@ -11,6 +11,7 @@ func _ready():
 
 func _on_Area_body_entered(body):
 	if body.get("TYPE") == "PLAYER":
+		$click.play(0)
 		$AnimationPlayer.play("Lower")
 		if temp == 0:
 			body.cutsceneIsPlaying = true

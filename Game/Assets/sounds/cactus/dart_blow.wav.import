@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/dart_blow.wav-69d753a14ccaa65d0ed311bde0a6d595.sample"
+
+[deps]
+
+source_file="res://Assets/sounds/cactus/dart_blow.wav"
+dest_files=[ "res://.import/dart_blow.wav-69d753a14ccaa65d0ed311bde0a6d595.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
