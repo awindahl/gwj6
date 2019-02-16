@@ -1,7 +1,8 @@
 extends Spatial
 
 func _close():
-	get_parent().get_node("Player").cutsceneIsPlaying = true
+	var player = get_parent().get_node("Player")
+	player.cutsceneIsPlaying = true
 	$AnimationPlayer2.play("Off")
 
 func _done():
