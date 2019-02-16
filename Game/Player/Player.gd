@@ -32,6 +32,7 @@ var cutsceneIsPlaying = false
 var canRoot = true
 var temp = 0
 var isAlive = true
+var levelComplete = false
 
 # Indetermined vars
 var Up
@@ -57,7 +58,7 @@ func _ready():
 
 func _physics_process(delta):
 	
-	if isAlive:
+	if isAlive and not levelComplete:
 		
 		if not cutsceneIsPlaying:
 			_rotation_process()
@@ -66,7 +67,8 @@ func _physics_process(delta):
 			_shoot()
 			_climb()
 			_looking_at()
-			_ui_handler()
+			if not levelComplete:
+				_ui_handler()
 			
 		# You can only jump if you are touching the floor
 	if not $FloorRay.is_colliding():
