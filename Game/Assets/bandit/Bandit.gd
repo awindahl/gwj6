@@ -9,16 +9,12 @@ var state = STATE_PATROL
 var shooting = false
 export var SPEED : = 3.0
 export var FOV : = 90.0
-export var DETECT_RADIUS : = 20.0
+export var DETECT_RADIUS : = 30.0
 export var DETECT_ROOTED_RADIUS : = 5.0
 export var BULLET_FORCE = 5.0
 
-onready var player : KinematicBody = get_parent().get_parent().get_parent().get_node("Player")
+onready var player : KinematicBody = get_parent().get_parent().get_parent().get_parent().get_node("Player")
 onready var path_follow = get_parent()
-
-#func initialise(_level : Node, _player : KinematicBody) -> void:
-#	level = _level
-#	player = _player
 
 func _physics_process(delta) -> void:
 	var player_distance = can_see_entity(player)
@@ -40,7 +36,7 @@ func _physics_process(delta) -> void:
 		# Enables guard to follow path
 		if not player_found_yet:
 			get_parent().set_offset(get_parent().get_offset() + SPEED * delta)
-	elif state == STATE_ATTACK:
+	if state == STATE_ATTACK:
 		# Rotate to player to shoot
 		if player_found_yet:
 			var LastRot = path_follow.rotation_degrees
@@ -48,8 +44,8 @@ func _physics_process(delta) -> void:
 			value += delta
 			var LookDir = (player.global_transform.origin - path_follow.global_transform.origin) * -1
 			var RotTrans = path_follow.global_transform.looking_at(path_follow.global_transform.origin + LookDir, Vector3 (0,1,0))
-			var ThisRot = Quat(path_follow.global_transform.basis).slerp(RotTrans.basis, value)
-			ThisRot.normalized()
+			var ThisRot : Quat = Quat(path_follow.global_transform.basis).slerp(RotTrans.basis, value)
+			ThisRot = ThisRot.normalized()
 			if value > 1:
 				value = 1
 			path_follow.set_transform(Transform(ThisRot, path_follow.translation))
@@ -61,8 +57,9 @@ func _physics_process(delta) -> void:
 			
 		if not was_player_rooted and player.IsRooted and player_found:
 			print("I can still see you...")
-		elif not player_found_yet and player_found:
+		if not player_found_yet and player_found:
 			print("Must have been the wind...")
+			
 			state = STATE_PATROL
 		
 	player_found = player_found_yet
