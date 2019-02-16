@@ -11,6 +11,7 @@ const TYPE = "PLAYER"
 export var Gravity = -120
 export var WalkSpeed = 10
 export var NumberOfNeedles = 3
+export var IsRooted = true
 
 var MoveSpeed = WalkSpeed
 var Velocity = Vector3()
@@ -18,7 +19,6 @@ var CanClimb = true
 var NewAngle = 0
 var ShouldRotateLeft = false
 var ShouldRotateRight = false
-var IsRooted = false
 var Needle = preload ("res://Player/Needle.tscn")
 var IsZoomed = false
 var IsMoving = false
@@ -141,7 +141,7 @@ func _movement_process(delta):
 	
 	if not Up and not Down and not Left and not Right:
 		IsMoving = false
-		Velocity = Vector3(0,0,0)
+		#Velocity = Vector3(0,0,0)
 		if temp == 0:
 			isPlaying = false
 			_play_anim("idle_anim")
@@ -264,6 +264,11 @@ func _climb_check():
 		return 1
 	else:
 		return 0
+
+func knockback(source : Spatial, force : float) -> void:
+	var direction = global_transform.origin - source.global_transform.origin
+	Velocity += direction*force
+    
 		
 func _looking_at():
 	## Inputs
@@ -278,4 +283,4 @@ func _play_anim(anim):
 	if not isPlaying:
 		$MeshInstance/AnimationPlayer.play(anim)
 		isPlaying = true
-		
+
