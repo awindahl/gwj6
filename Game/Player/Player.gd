@@ -66,6 +66,7 @@ func _physics_process(delta):
 			_shoot()
 			_climb()
 			_looking_at()
+			_ui_handler()
 			
 		# You can only jump if you are touching the floor
 	if not $FloorRay.is_colliding():
@@ -296,3 +297,34 @@ func _play_anim(anim):
 		$MeshInstance/AnimationPlayer.play(anim)
 		isPlaying = true
 
+func _ui_handler():
+	if health == 0:
+		$CanvasLayer/Health1.visible = false
+		$CanvasLayer/Health2.visible = false
+	if health == 1:
+		$CanvasLayer/Health1.visible = true
+		$CanvasLayer/Health2.visible = false
+	if health == 2:
+		$CanvasLayer/Health1.visible = true
+		$CanvasLayer/Health2.visible = true
+	
+	if NumberOfNeedles == 0:
+		$CanvasLayer/Needle1.visible = false
+		$CanvasLayer/Needle2.visible = false
+		$CanvasLayer/Needle3.visible = false
+	if NumberOfNeedles == 1:
+		$CanvasLayer/Needle1.visible = true
+		$CanvasLayer/Needle2.visible = false
+		$CanvasLayer/Needle3.visible = false
+	if NumberOfNeedles == 2:
+		$CanvasLayer/Needle1.visible = true
+		$CanvasLayer/Needle2.visible = true
+		$CanvasLayer/Needle3.visible = false
+	if NumberOfNeedles == 3:
+		$CanvasLayer/Needle1.visible = true
+		$CanvasLayer/Needle2.visible = true
+		$CanvasLayer/Needle3.visible = true
+
+func _on_AmmoRefresh_timeout():
+	if NumberOfNeedles < 3:
+		NumberOfNeedles += 1
