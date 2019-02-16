@@ -42,7 +42,6 @@ tracks/1/keys = {
 script = ExtResource( 1 )
 
 [node name="MeshInstance" parent="." instance=ExtResource( 2 )]
-editor/display_folded = true
 
 [node name="ClimbRays" type="Spatial" parent="MeshInstance"]
 editor/display_folded = true
@@ -59,7 +58,7 @@ enabled = true
 cast_to = Vector3( 0, 0, 2 )
 
 [node name="FaceRay" type="RayCast" parent="MeshInstance"]
-transform = Transform( -1, -7.64275e-015, -8.74228e-008, -7.95056e-009, -0.99896, 0.0909439, -1.74173e-007, 0.0456002, 1.99231, 3.09996e-009, 3.08049, 0.0540699 )
+transform = Transform( -1, -7.64275e-015, -8.74228e-008, 2.50972e-008, -0.989586, -0.287079, -1.72539e-007, -0.143943, 1.97362, 3.09996e-009, 3.08049, 1.31731 )
 enabled = true
 cast_to = Vector3( 0, 0, 0.64 )
 

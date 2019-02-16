@@ -66,7 +66,7 @@ func _physics_process(delta):
 	# You can only jump if you are touching the floor
 	if not $FloorRay.is_colliding():
 		_apply_gravity(delta)
-	if IsRooted or IsZoomed:
+	if IsRooted:
 		Velocity.y = 0
 	
 func _apply_gravity(delta):
@@ -270,9 +270,10 @@ func _looking_at():
 	Turn = Input.is_action_pressed("Turn")
 	if $MeshInstance/FaceRay.is_colliding():
 		Body = $MeshInstance/FaceRay.get_collider()
+		print("AY")
 		if Body.get("TYPE") == "VALVE":
 			if Turn:
-				get_parent().get_node("Faucet")._close()
+				get_parent().get_node("Mechanics/Faucet")._close()
 
 func _play_anim(anim):
 	if not isPlaying:

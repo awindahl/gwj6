@@ -22,7 +22,7 @@ mesh = SubResource( 1 )
 material/0 = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 5, 0, 0, 0, 2.20942, 0, 0, 0, 5, 0, 0.814768, 0 )
+transform = Transform( 4.61, 0, 0, 0, 0.279, 0, 0, 0, 4.82, 0, 0.0629234, 0 )
 shape = SubResource( 2 )
 
 [connection signal="body_entered" from="." to="." method="_on_pool_body_entered"]
