@@ -54,10 +54,12 @@ func _on_backBtn_pressed():
 func _on_fullscrnBtn_pressed():
 	OS.set_window_resizable(true)
 	if OS.is_window_fullscreen():
+		sizeBtn.disabled = false
 		OS.set_window_fullscreen(false)
 		scale = window.scale * screen_size/OS.get_screen_size()
 		window.scale = scale
 	else:
+		sizeBtn.disabled = true
 		OS.set_window_fullscreen(true)
 		scale = window.scale * OS.get_screen_size()/screen_size
 		window.scale = scale
