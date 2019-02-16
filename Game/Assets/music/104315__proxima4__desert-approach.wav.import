@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/104315__proxima4__desert-approach.wav-3e6df167abe3cbbc03f45f895cbd9d07.sample"
+
+[deps]
+
+source_file="res://Assets/music/104315__proxima4__desert-approach.wav"
+dest_files=[ "res://.import/104315__proxima4__desert-approach.wav-3e6df167abe3cbbc03f45f895cbd9d07.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
