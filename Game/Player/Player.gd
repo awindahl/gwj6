@@ -3,14 +3,15 @@ extends KinematicBody
 # Constants
 const ACCELERATION = 0.5
 const DECELERATION = 0.5
-const MAXSLOPEANGLE = 0
+const MAXSLOPEANGLE = 30
 const JUMP = 20
 const TYPE = "PLAYER"
 
 # Assigned vars, export some of these
-export var Gravity = -120
+export var Gravity = -40
 export var WalkSpeed = 10
 export var NumberOfNeedles = 3
+export var IsRooted = true
 
 var MoveSpeed = WalkSpeed
 var Velocity = Vector3()
@@ -18,7 +19,6 @@ var CanClimb = true
 var NewAngle = 0
 var ShouldRotateLeft = false
 var ShouldRotateRight = false
-var IsRooted = false
 var Needle = preload ("res://Player/Needle.tscn")
 var IsZoomed = false
 var IsMoving = false
@@ -66,7 +66,7 @@ func _physics_process(delta):
 	# You can only jump if you are touching the floor
 	if not $FloorRay.is_colliding():
 		_apply_gravity(delta)
-	if IsRooted or IsZoomed:
+	if IsRooted:
 		Velocity.y = 0
 	
 func _apply_gravity(delta):
@@ -141,7 +141,7 @@ func _movement_process(delta):
 	
 	if not Up and not Down and not Left and not Right:
 		IsMoving = false
-		Velocity = Vector3(0,0,0)
+		#Velocity = Vector3(0,0,0)
 		if temp == 0:
 			isPlaying = false
 			_play_anim("idle_anim")
@@ -181,7 +181,7 @@ func _root():
 	Space = Input.is_action_just_pressed("Space")
 	if Space and IsRooted:
 		IsRooted = false
-	elif Space and not IsRooted and not ShouldRotateLeft and not ShouldRotateRight and not IsZoomed and not IsClimbing and canRoot:
+	elif Space and not IsRooted and not ShouldRotateLeft and not ShouldRotateRight and not IsZoomed and not IsClimbing and canRoot and $FloorRay.is_colliding():
 		IsRooted = true
 	
 func _shoot():
@@ -255,7 +255,7 @@ func _climb():
 		_play_anim("climb_anim")
 		IsMoving = true
 		temp = 1
-		Velocity.y += 23
+		Velocity.y += 10
 		Velocity += global_transform.basis.z.normalized() * Direction2d.y
 		Velocity += global_transform.basis.x.normalized() * Direction2d.x
 
@@ -264,18 +264,24 @@ func _climb_check():
 		return 1
 	else:
 		return 0
+
+func knockback(source : Spatial, force : float) -> void:
+	var direction = global_transform.origin - source.global_transform.origin
+	Velocity += direction*force
+    
 		
 func _looking_at():
 	## Inputs
 	Turn = Input.is_action_pressed("Turn")
 	if $MeshInstance/FaceRay.is_colliding():
 		Body = $MeshInstance/FaceRay.get_collider()
+		print("AY")
 		if Body.get("TYPE") == "VALVE":
 			if Turn:
-				get_parent().get_node("Faucet")._close()
+				get_parent().get_node("Mechanics/Faucet")._close()
 
 func _play_anim(anim):
 	if not isPlaying:
 		$MeshInstance/AnimationPlayer.play(anim)
 		isPlaying = true
-		
+
