@@ -3,13 +3,13 @@ extends KinematicBody
 # Constants
 const ACCELERATION = 0.5
 const DECELERATION = 0.5
-const MAXSLOPEANGLE = 60
+const MAXSLOPEANGLE = 0
 const JUMP = 20
 const TYPE = "PLAYER"
 
 # Assigned vars, export some of these
-export var Gravity = -70
-export var WalkSpeed = 20
+export var Gravity = -120
+export var WalkSpeed = 10
 export var NumberOfNeedles = 3
 export var IsRooted = true
 
@@ -19,6 +19,10 @@ var CanClimb = true
 var NewAngle = 0
 var ShouldRotateLeft = false
 var ShouldRotateRight = false
+<<<<<<< HEAD
+=======
+var IsRooted = false
+>>>>>>> b9c5d5a4b9b84741217b67b66adef3a11fdfbca8
 var Needle = preload ("res://Player/Needle.tscn")
 var IsZoomed = false
 var IsMoving = false
@@ -28,6 +32,8 @@ var ViewSensitivity = 0.5
 var CanMoveMouse = false
 var IsClimbing = false
 var cutsceneIsPlaying = false
+var canRoot = true
+var temp = 0
 
 # Indetermined vars
 var Up
@@ -44,24 +50,29 @@ var Direction2d
 var Direction3d
 var RotLeft
 var RotRight
+var Body
+var Turn
+var isPlaying 
 
 func _ready():
 	$CameraTarget/ThirdPerson/TPCamera.make_current()
 
 func _physics_process(delta):
 	
-	_rotation_process()
-	_movement_process(delta)
-	_root()
-	_shoot()
-	_climb()
-	
+	if not cutsceneIsPlaying:
+		_rotation_process()
+		_movement_process(delta)
+		_root()
+		_shoot()
+		_climb()
+		_looking_at()
+		
 	# You can only jump if you are touching the floor
-	if _get_normal().y > 0:
-		CanClimb = true
-	elif not IsRooted:
+	if not $FloorRay.is_colliding():
 		_apply_gravity(delta)
-
+	if IsRooted or IsZoomed:
+		Velocity.y = 0
+	
 func _apply_gravity(delta):
 	Velocity.y += delta * Gravity
 
@@ -114,22 +125,40 @@ func _movement_process(delta):
 	Direction2d = Vector2()
 	Direction3d = Vector3()
 	if Up and not IsZoomed and not cutsceneIsPlaying:
+		IsMoving = true
 		Direction2d.y += 1
 		$MeshInstance.rotation_degrees.y = 0
 	if Down and not IsZoomed and not cutsceneIsPlaying:
+		IsMoving = true
 		Direction2d.y -= 1
 		$MeshInstance.rotation_degrees.y = 180
 	if Left and not cutsceneIsPlaying:
+		IsMoving = true
 		Direction2d.x += 1
 		if not IsZoomed:
 			$MeshInstance.rotation_degrees.y = 90
 	if Right and not cutsceneIsPlaying:
+		IsMoving = true
 		Direction2d.x -= 1
 		if not IsZoomed:
 			$MeshInstance.rotation_degrees.y = -90
 	
+	if not Up and not Down and not Left and not Right:
+		IsMoving = false
+		Velocity = Vector3(0,0,0)
+		if temp == 0:
+			isPlaying = false
+			_play_anim("idle_anim")
+			temp = 1
+	
+	if IsMoving and temp == 1 and not IsRooted:
+		print("yeah im moving")
+		isPlaying = false
+		temp = 0
+		_play_anim("walk_anim")
+	
+	
 	Direction2d = Direction2d.normalized()
-
 	Direction3d += global_transform.basis.z.normalized() * Direction2d.y
 	Direction3d += global_transform.basis.x.normalized() * Direction2d.x
 	
@@ -149,17 +178,15 @@ func _movement_process(delta):
 	
 	# Only move if camera is not rotating and not rooted and not zoomed
 	if not ShouldRotateRight and not ShouldRotateLeft and not IsRooted and (not IsZoomed or CanMoveMouse) and not cutsceneIsPlaying:
-		Velocity = move_and_slide(Velocity, _get_normal())
+		Velocity = move_and_slide(Velocity, _get_normal(), 0.05, 4 ,deg2rad(MAXSLOPEANGLE))
 		IsMoving = true
-	else:
-		IsMoving = false
 	
 func _root():
 	# Root/Uproot Mechanic
 	Space = Input.is_action_just_pressed("Space")
 	if Space and IsRooted:
 		IsRooted = false
-	elif Space and not IsRooted and not ShouldRotateLeft and not ShouldRotateRight and not IsZoomed and not IsClimbing:
+	elif Space and not IsRooted and not ShouldRotateLeft and not ShouldRotateRight and not IsZoomed and not IsClimbing and canRoot:
 		IsRooted = true
 	
 func _shoot():
@@ -184,11 +211,15 @@ func _shoot():
 		IsZoomed = true
 		$CameraTarget/Yaw/FPSCamera/Crosshair.visible = true
 		
-	if JustClickReleased and IsZoomed:
+	if JustClickReleased:
+		print("aa")
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		$AnimationPlayer.play_backwards("CameraMove")
 		IsZoomed = false
 		$CameraTarget/Yaw/FPSCamera/Crosshair.visible = false
+		$CameraTarget/Yaw/FPSCamera/Arm.visible = false
+		$MeshInstance.visible = true
+		CanMoveMouse = false
 		Yaw = 0
 		Pitch = 0
 		$CameraTarget/Yaw.rotation = Vector3()
@@ -196,9 +227,11 @@ func _shoot():
 	## Shoot needle
 	if CanMoveMouse:
 		Click = Input.is_action_just_pressed("LeftClick")
+		$CameraTarget/Yaw/FPSCamera/Arm.visible = true
+		$MeshInstance.visible = false
 		if Click:
 			var NewNeedle = Needle.instance()
-			get_tree().root.get_children()[0].add_child(NewNeedle)
+			get_parent().add_child(NewNeedle)
 			NewNeedle.global_transform = $CameraTarget/Yaw/FPSCamera/RayCast.global_transform
 	
 func _unhandled_input(event):
@@ -224,9 +257,13 @@ func _climb():
 	Down or \
 	Left or \
 	Right):
-			Velocity.y += 20
-			Velocity += global_transform.basis.z.normalized() * Direction2d.y
-			Velocity += global_transform.basis.x.normalized() * Direction2d.x
+		isPlaying = false
+		_play_anim("climb_anim")
+		IsMoving = true
+		temp = 1
+		Velocity.y += 23
+		Velocity += global_transform.basis.z.normalized() * Direction2d.y
+		Velocity += global_transform.basis.x.normalized() * Direction2d.x
 
 func _climb_check():
 	if $MeshInstance/ClimbRays/Bottom.is_colliding() and not $MeshInstance/ClimbRays/Top.is_colliding():
@@ -237,4 +274,19 @@ func _climb_check():
 func knockback(source : Spatial, force : float) -> void:
 	var direction = global_transform.origin - source.global_transform.origin
 	Velocity += direction*force
-	
+    
+		
+func _looking_at():
+	## Inputs
+	Turn = Input.is_action_pressed("Turn")
+	if $MeshInstance/FaceRay.is_colliding():
+		Body = $MeshInstance/FaceRay.get_collider()
+		if Body.get("TYPE") == "VALVE":
+			if Turn:
+				get_parent().get_node("Faucet")._close()
+
+func _play_anim(anim):
+	if not isPlaying:
+		$MeshInstance/AnimationPlayer.play(anim)
+		isPlaying = true
+
