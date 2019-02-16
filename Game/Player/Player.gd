@@ -148,7 +148,6 @@ func _movement_process(delta):
 			temp = 1
 	
 	if IsMoving and temp == 1 and not IsRooted:
-		print("yeah im moving")
 		isPlaying = false
 		temp = 0
 		_play_anim("walk_anim")
@@ -208,7 +207,6 @@ func _shoot():
 		$CameraTarget/Yaw/FPSCamera/Crosshair.visible = true
 		
 	if JustClickReleased:
-		print("aa")
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		$AnimationPlayer.play_backwards("CameraMove")
 		IsZoomed = false
