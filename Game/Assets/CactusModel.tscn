@@ -7,8 +7,9 @@
 [ext_resource path="res://Assets/climb_anim.tres" type="Animation" id=5]
 [ext_resource path="res://Assets/death_anim.tres" type="Animation" id=6]
 [ext_resource path="res://Assets/idle_anim.tres" type="Animation" id=7]
+[ext_resource path="res://Assets/walk_anim.tres" type="Animation" id=8]
 
-[sub_resource type="ArrayMesh" id=5]
+[sub_resource type="ArrayMesh" id=1]
 
 resource_name = "Sphere"
 surfaces/0 = {
@@ -25,7 +26,7 @@ surfaces/0 = {
 "vertex_count": 648
 }
 
-[sub_resource type="ArrayMesh" id=6]
+[sub_resource type="ArrayMesh" id=2]
 
 resource_name = "Cube"
 surfaces/0 = {
@@ -55,7 +56,7 @@ surfaces/1 = {
 "vertex_count": 1872
 }
 
-[sub_resource type="ArrayMesh" id=7]
+[sub_resource type="ArrayMesh" id=3]
 
 resource_name = "Cylinder.001"
 surfaces/0 = {
@@ -71,82 +72,6 @@ surfaces/0 = {
 "skeleton_aabb": [ AABB( -0.524827, -0.142681, -0.473926, 0.983017, 1.93472, 0.905495 ), AABB( -0.524827, 0, -0.473926, 0.983007, 2.15325, 0.905495 ), AABB( -1.12555, 0, -0.473926, 1.30478, 2.59329, 0.905495 ), AABB( -1.22244, 0, -0.34132, 0.90773, 2.36328, 0.640281 ), AABB( -1.22244, 0, -0.208714, 0.447903, 2.83717, 0.375068 ), AABB( -0.65937, 0, -0.473926, 1.21444, 2.99985, 0.905494 ), AABB( -0.314708, 0, -0.473926, 1.45112, 3.36784, 0.905495 ), AABB( 0, 0, -0.241865, 1.2333, 2.89282, 0.40822 ), AABB( 0, 0, -0.208713, 1.2333, 3.36672, 0.375068 ), AABB( -0.458633, 0, -0.473926, 1.12887, 3.72763, 0.905495 ) ],
 "vertex_count": 2937
 }
-
-[sub_resource type="Animation" id=4]
-
-resource_name = "walk_anim"
-length = 2.0
-loop = true
-tracks/0/type = "transform"
-tracks/0/path = NodePath("Armature:Bone")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = true
-tracks/0/enabled = true
-tracks/0/keys = PoolRealArray( 0, 1, -9.31323e-010, 0, -1.04308e-007, 0, 0, 0, 1, 1, 1, 1, 2, 1, -9.31323e-010, 0, -1.04308e-007, 0, 0, 0, 1, 1, 1, 1 )
-tracks/1/type = "transform"
-tracks/1/path = NodePath("Armature:Bone.001")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = true
-tracks/1/enabled = true
-tracks/1/keys = PoolRealArray( 0, 1, 0, 3.72529e-009, -2.38419e-007, -4.65661e-009, 2.14417e-010, 2.18609e-008, 1, 1, 1, 1, 0.5, 1, 0, 3.72529e-009, -2.38419e-007, -5.32195e-009, -0.00288652, 0.251127, 0.96795, 1, 1, 1, 1, 1, 0, 3.72529e-009, -2.38419e-007, -4.65661e-009, 2.14417e-010, 2.18609e-008, 1, 1, 1, 1, 1.5, 1, 0, 3.72529e-009, -2.38419e-007, -8.89882e-009, 0.00444225, -0.386475, 0.922289, 1, 1, 1, 2, 1, 0, 3.72529e-009, -2.38419e-007, -4.65661e-009, 2.14417e-010, 2.18609e-008, 1, 1, 1, 1 )
-tracks/2/type = "transform"
-tracks/2/path = NodePath("Armature:Bone.002")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = true
-tracks/2/enabled = true
-tracks/2/keys = PoolRealArray( 0, 1, 1.69501e-007, 1.78814e-007, 5.21541e-008, 1.86265e-008, 2.1841e-008, -5.44431e-008, 1, 1, 1, 1, 0.5, 1, 1.69501e-007, 1.78814e-007, 5.21541e-008, 2.9954e-008, -0.23628, 0.0113869, 0.971618, 1, 1, 1, 1, 1, 1.69501e-007, 1.78814e-007, 5.21541e-008, 1.86265e-008, 2.1841e-008, -5.44431e-008, 1, 1, 1, 1, 1.5, 1, 1.69501e-007, 1.78814e-007, 5.21541e-008, 5.43326e-009, 0.168809, -0.00813541, 0.985615, 1, 1, 1, 2, 1, 1.69501e-007, 1.78814e-007, 5.21541e-008, 1.86265e-008, 2.1841e-008, -5.44431e-008, 1, 1, 1, 1 )
-tracks/3/type = "transform"
-tracks/3/path = NodePath("Armature:Bone.003")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = true
-tracks/3/enabled = true
-tracks/3/keys = PoolRealArray( 0, 1, -2.30968e-007, -5.06639e-007, 5.36442e-007, -2.4448e-015, 3.44876e-008, 7.08889e-008, 1, 1, 1, 1, 2, 1, -2.30968e-007, -5.06639e-007, 5.36442e-007, -2.4448e-015, 3.44876e-008, 7.08889e-008, 1, 1, 1, 1 )
-tracks/4/type = "transform"
-tracks/4/path = NodePath("Armature:Bone.004")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = true
-tracks/4/enabled = true
-tracks/4/keys = PoolRealArray( 0, 1, 6.14673e-008, -4.76837e-007, -1.78814e-007, -4.47035e-008, -2.10402e-008, -2.12121e-008, 1, 1, 1, 1, 2, 1, 6.14673e-008, -4.76837e-007, -1.78814e-007, -4.47035e-008, -2.10402e-008, -2.12121e-008, 1, 1, 1, 1 )
-tracks/5/type = "transform"
-tracks/5/path = NodePath("Armature:Bone.005")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = true
-tracks/5/enabled = true
-tracks/5/keys = PoolRealArray( 0, 1, 4.84288e-008, 0, 4.17233e-007, 2.51297e-010, -6.0536e-009, -2.18542e-008, 1, 1, 1, 1, 2, 1, 4.84288e-008, 0, 4.17233e-007, 2.51297e-010, -6.0536e-009, -2.18542e-008, 1, 1, 1, 1 )
-tracks/6/type = "transform"
-tracks/6/path = NodePath("Armature:Bone.006")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = true
-tracks/6/enabled = true
-tracks/6/keys = PoolRealArray( 0, 1, 2.40281e-007, 1.19209e-007, -1.49012e-008, -1.86264e-008, 9.29484e-010, -3.79205e-008, 1, 1, 1, 1, 0.5, 1, 2.40281e-007, 1.19209e-007, -1.49012e-008, 1.84617e-008, -0.17845, -0.0220556, 0.983702, 1, 1, 1, 1, 1, 2.40281e-007, 1.19209e-007, -1.49012e-008, -1.86264e-008, 9.29484e-010, -3.79205e-008, 1, 1, 1, 1, 1.5, 1, 2.40281e-007, 1.19209e-007, -1.49012e-008, -1.13908e-008, 0.191878, 0.0237152, 0.981132, 1, 1, 1, 2, 1, 2.40281e-007, 1.19209e-007, -1.49012e-008, -1.86264e-008, 9.29484e-010, -3.79205e-008, 1, 1, 1, 1 )
-tracks/7/type = "transform"
-tracks/7/path = NodePath("Armature:Bone.007")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/imported = true
-tracks/7/enabled = true
-tracks/7/keys = PoolRealArray( 0, 1, -1.78814e-007, -1.19209e-007, -8.9407e-008, -4.47035e-008, 2.88642e-008, 9.80144e-009, 1, 1, 1, 1, 2, 1, -1.78814e-007, -1.19209e-007, -8.9407e-008, -4.47035e-008, 2.88642e-008, 9.80144e-009, 1, 1, 1, 1 )
-tracks/8/type = "transform"
-tracks/8/path = NodePath("Armature:Bone.008")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/imported = true
-tracks/8/enabled = true
-tracks/8/keys = PoolRealArray( 0, 1, -7.15256e-007, 5.96046e-008, 1.3113e-006, -1.88534e-009, -1.49012e-008, 3.29027e-008, 1, 1, 1, 1, 2, 1, -7.15256e-007, 5.96046e-008, 1.3113e-006, -1.88534e-009, -1.49012e-008, 3.29027e-008, 1, 1, 1, 1 )
-tracks/9/type = "transform"
-tracks/9/path = NodePath("Armature:Bone.009")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/imported = true
-tracks/9/enabled = true
-tracks/9/keys = PoolRealArray( 0, 1, 0, 2.04891e-008, 5.96046e-007, -2.79397e-009, 1.04038e-009, -3.77346e-008, 1, 1, 1, 1, 2, 1, 0, 2.04891e-008, 5.96046e-007, -2.79397e-009, 1.04038e-009, -3.77346e-008, 1, 1, 1, 1 )
 
 [node name="Scene Root" type="Spatial"]
 
@@ -205,23 +130,23 @@ bones/9/bound_children = [  ]
 
 [node name="Eyes" type="MeshInstance" parent="Armature"]
 extra_cull_margin = 8633.66
-mesh = SubResource( 5 )
+mesh = SubResource( 1 )
 material/0 = null
 
 [node name="Hat" type="MeshInstance" parent="Armature"]
 extra_cull_margin = 8633.66
-mesh = SubResource( 6 )
+mesh = SubResource( 2 )
 material/0 = null
 material/1 = null
 
 [node name="Cactus" type="MeshInstance" parent="Armature"]
 extra_cull_margin = 8633.66
-mesh = SubResource( 7 )
+mesh = SubResource( 3 )
 material/0 = null
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/climb_anim = ExtResource( 5 )
 anims/death_anim = ExtResource( 6 )
 anims/idle_anim = ExtResource( 7 )
-anims/walk_anim = SubResource( 4 )
+anims/walk_anim = ExtResource( 8 )
 

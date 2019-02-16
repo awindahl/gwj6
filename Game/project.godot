@@ -27,6 +27,10 @@ config/icon="res://icon.png"
 
 transition="*res://Transition/transition.tscn"
 
+[debug]
+
+settings/stdout/print_fps=true
+
 [display]
 
 window/size/height=576
