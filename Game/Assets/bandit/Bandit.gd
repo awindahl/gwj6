@@ -43,5 +43,6 @@ func _physics_process(delta) -> void:
 	if not player_found_yet:
 		# Follow the path around
 		get_parent().set_offset(get_parent().get_offset() + SPEED * delta)
+		rotation_degrees.z = 0
 		
 	player_found = player_found_yet
