@@ -6,6 +6,7 @@
 [ext_resource path="res://Assets/music/Violin and Piano.wav" type="AudioStream" id=4]
 
 [sub_resource type="ViewportTexture" id=1]
+
 viewport_path = NodePath("Viewport")
 
 [node name="menu" type="Control"]
@@ -163,12 +164,10 @@ text = "Back"
 
 [node name="desertStream" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
-volume_db = -35.0
 autoplay = true
 
 [node name="musicstream" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
-volume_db = -30.0
 autoplay = true
 
 [connection signal="pressed" from="main/VBoxContainer/playBtn" to="." method="_on_playBtn_pressed"]
