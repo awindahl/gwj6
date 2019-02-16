@@ -53,11 +53,10 @@ tracks/2/keys = {
 "values": [ true, false ]
 }
 
-[node name="Faucet" instance=ExtResource( 1 )]
+[node name="Faucet" index="0" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
 [node name="Cylinder" parent="." index="0"]
-editor/display_folded = true
 transform = Transform( 5.14879e-008, 0.681978, 0, -0.681978, 5.14879e-008, 0, 0, 0, 0.681978, 0, 0, 0 )
 
 [node name="StaticBody" type="StaticBody" parent="Cylinder" index="0"]
