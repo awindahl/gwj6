@@ -33,6 +33,7 @@ var canRoot = true
 var temp = 0
 var isAlive = true
 var levelComplete = false
+var waterOff = false
 
 # Indetermined vars
 var Up
@@ -293,6 +294,7 @@ func _looking_at():
 		if Body.get("TYPE") == "VALVE":
 			if Turn:
 				get_parent().get_node("Mechanics/Faucet")._close()
+				waterOff = true
 
 func _play_anim(anim):
 	if not isPlaying:
