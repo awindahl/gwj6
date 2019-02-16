@@ -19,10 +19,6 @@ var CanClimb = true
 var NewAngle = 0
 var ShouldRotateLeft = false
 var ShouldRotateRight = false
-<<<<<<< HEAD
-=======
-var IsRooted = false
->>>>>>> b9c5d5a4b9b84741217b67b66adef3a11fdfbca8
 var Needle = preload ("res://Player/Needle.tscn")
 var IsZoomed = false
 var IsMoving = false

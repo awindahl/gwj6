@@ -84,6 +84,6 @@ func can_see_entity(entity) -> float:
 func shoot(entity) -> void:
 	entity.knockback(self, BULLET_FORCE)
 
-func _on_Timer_timeout():
+func _on_GunTimer_timeout():
 	shoot(player)
 	shooting = false
