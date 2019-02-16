@@ -49,7 +49,13 @@ func _on_backBtn_pressed():
 	main.show()
 	options.hide()
 	credits.hide()
-	
+
+func _on_desertStream_finished():
+	$desertStream.play(0)
+
+func _on_musicstream_finished():
+	$musicstream.play(0)
+
 # =================================================== OPTIONS FUNCTIONALITY ===================================================
 func _on_fullscrnBtn_pressed():
 	OS.set_window_resizable(true)
@@ -95,6 +101,3 @@ func _on_sizeBtn_item_selected(ID):
 		OS.set_window_size(screen_size)
 
 # =================================================== CREDITS FUNCTIONALITY ===================================================
-
-
-

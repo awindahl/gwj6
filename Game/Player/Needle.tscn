@@ -1,18 +1,16 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Player/Needle.gd" type="Script" id=1]
+[ext_resource path="res://Assets/sounds/cactus/dart_thud.wav" type="AudioStream" id=2]
 
 [sub_resource type="SpatialMaterial" id=1]
-
 albedo_color = Color( 0, 0, 0, 1 )
 roughness = 0.0
 
 [sub_resource type="CapsuleMesh" id=2]
-
 material = SubResource( 1 )
 
 [sub_resource type="CapsuleShape" id=3]
-
 
 [node name="Needle" type="Spatial"]
 script = ExtResource( 1 )
@@ -27,5 +25,9 @@ material/0 = null
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
 transform = Transform( 0.382049, 0, 0, 0, 0.382049, 0, 0, 0, 0.488948, 0, 0, 0 )
 shape = SubResource( 3 )
+
+[node name="hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -30.0
 
 [connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]

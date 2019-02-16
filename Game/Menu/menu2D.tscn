@@ -181,3 +181,5 @@ autoplay = true
 [connection signal="item_selected" from="options/sizeBtn" to="." method="_on_sizeBtn_item_selected"]
 [connection signal="pressed" from="options/options_backBtn" to="." method="_on_backBtn_pressed"]
 [connection signal="pressed" from="credits/credits_backBtn" to="." method="_on_backBtn_pressed"]
+[connection signal="finished" from="desertStream" to="." method="_on_desertStream_finished"]
+[connection signal="finished" from="musicstream" to="." method="_on_musicstream_finished"]

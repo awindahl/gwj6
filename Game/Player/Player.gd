@@ -52,6 +52,8 @@ var Body
 var Turn
 var isPlaying 
 
+var waterFinished = true
+
 func _ready():
 	$CameraTarget/ThirdPerson/TPCamera.make_current()
 
@@ -155,6 +157,12 @@ func _movement_process(delta):
 		isPlaying = false
 		temp = 0
 		_play_anim("walk_anim")
+		if !canRoot:
+			if waterFinished:
+				$water_walk.play(0)
+		else:
+			if waterFinished:
+				$water_walk.stop()
 	
 	
 	Direction2d = Direction2d.normalized()
@@ -185,8 +193,10 @@ func _root():
 	Space = Input.is_action_just_pressed("Space")
 	if Space and IsRooted:
 		IsRooted = false
+		$root.play(0)
 	elif Space and not IsRooted and not ShouldRotateLeft and not ShouldRotateRight and not IsZoomed and not IsClimbing and canRoot and $FloorRay.is_colliding():
 		IsRooted = true
+		$root.play(0)
 	
 func _shoot():
 	# Switch Camera to FPS when shooting
@@ -228,6 +238,7 @@ func _shoot():
 		$CameraTarget/Yaw/FPSCamera/Arm.visible = true
 		$MeshInstance.visible = false
 		if Click and NumberOfNeedles != 0:
+			$shoot.play(0)
 			NumberOfNeedles -= 1
 			var NewNeedle = Needle.instance()
 			get_parent().add_child(NewNeedle)
@@ -271,6 +282,7 @@ func _climb_check():
 		return 0
 
 func knockback(source : Spatial, force : float) -> void:
+	$hurt.play(0)
 	var direction = global_transform.origin - source.global_transform.origin
 	Velocity += direction*force
 	health -= 1
@@ -296,3 +308,6 @@ func _play_anim(anim):
 		$MeshInstance/AnimationPlayer.play(anim)
 		isPlaying = true
 
+
+func _on_water_walk_finished():
+	waterFinished = true
