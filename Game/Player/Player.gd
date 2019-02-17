@@ -70,6 +70,7 @@ func _physics_process(delta):
 			_shoot()
 			_climb()
 			_looking_at()
+			_ui_handler()
 			
 	if levelComplete:
 		$CanvasLayer/Layer1.visible = false
