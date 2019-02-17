@@ -68,6 +68,7 @@ script = ExtResource( 1 )
 transform = Transform( 0.702929, 0, 0.71126, 0, 1, 0, -0.71126, 0, 0.702929, -69.0142, 3.38146, -54.6171 )
 
 [node name="Environment" type="Node" parent="."]
+editor/display_folded = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
 environment = SubResource( 2 )
@@ -428,16 +429,7 @@ rotation_mode = 4
 editor/display_folded = true
 
 [node name="pool" parent="Puddles" instance=ExtResource( 22 )]
-transform = Transform( 2.13564, 0, 0, 0, 1, 0, 0, 0, 1.72194, 3.97852, 4.59137, 17.3709 )
-script = null
-
-[node name="pool2" parent="Puddles" instance=ExtResource( 22 )]
-transform = Transform( 6.22587, 0, 0, 0, 1, 0, 0, 0, 5.01984, -18.6001, 0.768307, 40.1614 )
-script = null
-
-[node name="pool3" parent="Puddles" instance=ExtResource( 22 )]
-transform = Transform( -2.64419, 0, 0, 0, 0.99825, 0.126083, 0, 0.0591391, -2.12824, -29.2592, 4.01192, -31.4008 )
-script = null
+transform = Transform( 3.44941, 0, 0, 0, 1, 0, 0, 0, 3.44941, -31.6363, 3.1216, -34.5079 )
 
 [node name="LevelEndScreen" parent="." instance=ExtResource( 23 )]
 
