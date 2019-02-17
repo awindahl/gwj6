@@ -1,28 +1,31 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Menu/menu2D.gd" type="Script" id=1]
 [ext_resource path="res://Menu/Menu3DBackground.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Assets/music/104315__proxima4__desert-approach.wav" type="AudioStream" id=3]
-[ext_resource path="res://Assets/music/Violin and Piano.wav" type="AudioStream" id=4]
-[ext_resource path="res://Assets/cactusjustice.png" type="Texture" id=5]
+[ext_resource path="res://Assets/real_player/alewin.jpg" type="Texture" id=3]
+[ext_resource path="res://Assets/real_player/ekin.png" type="Texture" id=4]
+[ext_resource path="res://Assets/real_player/sumaris.png" type="Texture" id=5]
+[ext_resource path="res://Assets/music/104315__proxima4__desert-approach.wav" type="AudioStream" id=6]
+[ext_resource path="res://Assets/music/Violin and Piano.wav" type="AudioStream" id=7]
+[ext_resource path="res://Assets/cactusjustice.png" type="Texture" id=8]
+[ext_resource path="res://Menu/title.tres" type="Animation" id=9]
 
 [sub_resource type="ViewportTexture" id=1]
 viewport_path = NodePath("Viewport")
 
 [sub_resource type="Animation" id=2]
-resource_name = "title"
-length = 2.0
+resource_name = "credits"
 tracks/0/type = "value"
-tracks/0/path = NodePath("title:modulate")
+tracks/0/path = NodePath("title:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 2 ),
-"transitions": PoolRealArray( 2.14355, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+"values": [ Vector2( 503.533, 54.4845 ) ]
 }
 
 [node name="menu" type="Control"]
@@ -45,6 +48,7 @@ offset = Vector2( 958.28, 539.641 )
 
 [node name="main" type="Control" parent="."]
 editor/display_folded = true
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -167,10 +171,22 @@ rect_pivot_offset = Vector2( 0.845642, -0.268539 )
 text = "Back"
 
 [node name="credits" type="Control" parent="."]
-editor/display_folded = true
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+
+[node name="ColorRect" type="ColorRect" parent="credits"]
+margin_left = 600.0
+margin_top = 168.0
+margin_right = 925.0
+margin_bottom = 571.0
+color = Color( 1, 1, 1, 0.564706 )
+
+[node name="ColorRect2" type="ColorRect" parent="credits"]
+margin_left = 100.0
+margin_top = 168.0
+margin_right = 425.0
+margin_bottom = 571.0
+color = Color( 1, 1, 1, 0.564706 )
 
 [node name="credits_backBtn" type="Button" parent="credits"]
 anchor_left = 0.5
@@ -183,21 +199,137 @@ margin_right = 60.0
 margin_bottom = -20.0
 text = "Back"
 
+[node name="alew" type="Sprite" parent="credits"]
+position = Vector2( 664.572, 247 )
+scale = Vector2( 0.427151, 0.427151 )
+texture = ExtResource( 3 )
+
+[node name="ekin" type="Sprite" parent="credits"]
+position = Vector2( 662.857, 382 )
+scale = Vector2( 0.255115, 0.255115 )
+texture = ExtResource( 4 )
+
+[node name="alra" type="Sprite" parent="credits"]
+position = Vector2( 662.857, 514 )
+scale = Vector2( 0.593906, 0.593906 )
+texture = ExtResource( 5 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="credits"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 725.251
+margin_top = 194.0
+margin_right = 957.251
+margin_bottom = 301.0
+bbcode_enabled = true
+bbcode_text = "Alexander Windahl
+[url]https://github.com/awindahl[/url]
+[url]https://goldenapples.itch.io[/url]"
+text = "Alexander Windahl
+https://github.com/awindahl
+https://goldenapples.itch.io"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="credits"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 724.0
+margin_top = 460.0
+margin_right = 956.0
+margin_bottom = 567.0
+bbcode_enabled = true
+bbcode_text = "Alfred Radu
+[url]https://github.com/Sumaris[/url]
+[url]https://sumaris.itch.io[/url]"
+text = "Alfred Radu
+https://github.com/Sumaris
+https://sumaris.itch.io"
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="credits"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 724.857
+margin_top = 328.0
+margin_right = 956.857
+margin_bottom = 435.0
+bbcode_enabled = true
+bbcode_text = "Ekin Inceleme
+[url]https://github.com/Eks2[/url]
+[url]https://ekster.itch.io[/url]"
+text = "Ekin Inceleme
+https://github.com/Eks2
+https://ekster.itch.io"
+
+[node name="Label" type="Label" parent="credits"]
+margin_left = 611.332
+margin_top = 172.635
+margin_right = 669.332
+margin_bottom = 186.635
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Made by:"
+
+[node name="Label2" type="Label" parent="credits"]
+margin_left = 111.332
+margin_top = 172.635
+margin_right = 176.332
+margin_bottom = 186.635
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Thanks to:"
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="credits"]
+margin_left = 111.429
+margin_top = 189.0
+margin_right = 412.429
+margin_bottom = 560.0
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "*imp*
+Kevin MacLeod
+From [url]https://gamesounds.xyz[/url]
+
+Proxima4
+gsb1039
+loudernoises
+CosmicEmbers
+LittleRobotSoundfactory
+lebaston100
+InspectorJ
+Guntherdorksen
+josepharaoh99
+FunwithSound
+From [url]https://freesound.org[/url]
+
+For their music and sounds used in this game"
+text = "*imp*
+Kevin MacLeod
+From https://gamesounds.xyz
+
+Proxima4
+gsb1039
+loudernoises
+CosmicEmbers
+LittleRobotSoundfactory
+lebaston100
+InspectorJ
+Guntherdorksen
+josepharaoh99
+FunwithSound
+From https://freesound.org
+
+For their music and sounds used in this game"
+
 [node name="desertStream" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 3 )
+stream = ExtResource( 6 )
 autoplay = true
 
 [node name="musicstream" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 4 )
+stream = ExtResource( 7 )
 autoplay = true
 
 [node name="title" type="Sprite" parent="."]
 position = Vector2( 503.533, 54.4845 )
-texture = ExtResource( 5 )
+texture = ExtResource( 8 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "title"
-anims/title = SubResource( 2 )
+anims/credits = SubResource( 2 )
+anims/title = ExtResource( 9 )
 
 [connection signal="pressed" from="main/VBoxContainer/playBtn" to="." method="_on_playBtn_pressed"]
 [connection signal="pressed" from="main/VBoxContainer/creditsBtn" to="." method="_on_creditsBtn_pressed"]
