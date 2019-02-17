@@ -108,7 +108,6 @@ volume_db = -10.0
 
 [node name="lose" type="AudioStreamPlayer" parent="Environment"]
 stream = ExtResource( 7 )
-volume_db = -10.0
 
 [node name="badMusic" type="AudioStreamPlayer" parent="Environment"]
 stream = ExtResource( 8 )

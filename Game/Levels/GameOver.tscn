@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Levels/GameOver.gd" type="Script" id=1]
+[ext_resource path="res://Assets/ScreenOverlay.png" type="Texture" id=2]
+[ext_resource path="res://Assets/ArchitectsDaughter32.tres" type="DynamicFont" id=3]
+
+[node name="GameOver" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 509.18, 296.073 )
+scale = Vector2( 0.515463, 0.316882 )
+texture = ExtResource( 2 )
+
+[node name="Button" type="Button" parent="."]
+margin_left = 411.361
+margin_top = 492.728
+margin_right = 622.361
+margin_bottom = 559.728
+custom_fonts/font = ExtResource( 3 )
+text = "Main Menu"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = 176.0
+margin_top = 99.1905
+margin_right = 827.0
+margin_bottom = 423.19
+custom_fonts/normal_font = ExtResource( 3 )
+bbcode_enabled = true
+bbcode_text = "[center] Oh No!
+It seems our brave cacti operative has fallen in battle. Fear not, go back to the main menu and try again!
+ [/center]"
+text = " Oh No!
+It seems our brave cactus operative has fallen in battle. Fear not, go back to the main menu and try again!
+ "
+scroll_active = false
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
