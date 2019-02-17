@@ -6,9 +6,13 @@ var time = 0
 var score = 0
 var temp = 0
 var gameOver = false
+var gameClear = false
 
 func _process(delta):
 	if player.levelComplete:
+		if !gameClear:
+			gameClear = true
+			$Environment/win.play(0)
 		$LevelEndScreen/Layer1.visible = true
 		
 		if number <= 3.0:
@@ -30,7 +34,6 @@ func _process(delta):
 		
 		if temp == 0:
 			temp = 1
-			$Environment/win.play(0)
 			score /= round(time/10)
 		
 			print(score)
