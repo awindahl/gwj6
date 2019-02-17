@@ -1,10 +1,12 @@
 extends CanvasLayer
 
+onready var tracker = get_node("/root/tracker")
 var n = tracker.n
 
 func _on_MainMenuButton_pressed():
 	$Layer1/Layer2.visible = false
 	transition.fade_to("res://Menu/menu2D.tscn", 0.9, "startSlide")
+	tracker.n = 1
 
 func _on_NextLevelButton_pressed():
 	tracker.n += 1
