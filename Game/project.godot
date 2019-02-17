@@ -20,7 +20,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="WildJam6"
+config/name="Cactus Justice"
 run/main_scene="res://Menu/menu2D.tscn"
 config/icon="res://Assets/image.png"
 
