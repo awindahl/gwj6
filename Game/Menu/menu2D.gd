@@ -34,7 +34,7 @@ func _ready():
 func _on_playBtn_pressed():
 	$desertStream.playing = false
 	$musicstream.playing = false
-	transition.fade_to("res://Levels/Level1.tscn", 0.9, "startSlide")
+	transition.fade_to("res://Levels/Level Explainer.tscn", 0.9, "startSlide")
 
 func _on_creditsBtn_pressed():
 	main.hide()

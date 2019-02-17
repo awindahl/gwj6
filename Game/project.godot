@@ -26,8 +26,8 @@ config/icon="res://Assets/image.png"
 
 [autoload]
 
-tracker="*res://Player/tracker.gd"
 transition="*res://Transition/transition.tscn"
+tracker="*res://Player/tracker.gd"
 
 [display]
 
