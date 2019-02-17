@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/CactusModel.tscn" type="PackedScene" id=2]
@@ -7,9 +7,11 @@
 [ext_resource path="res://Assets/sounds/cactus/water_step.wav" type="AudioStream" id=5]
 [ext_resource path="res://Assets/sounds/cactus/hurt.wav" type="AudioStream" id=6]
 [ext_resource path="res://Assets/sounds/cactus/dart_blow.wav" type="AudioStream" id=7]
-[ext_resource path="res://Assets/ArchitectsDaughter32.tres" type="DynamicFont" id=8]
-[ext_resource path="res://Assets/UIfruit.png" type="Texture" id=9]
-[ext_resource path="res://Assets/UIneedle.png" type="Texture" id=10]
+[ext_resource path="res://Assets/sounds/cactus/footstep.wav" type="AudioStream" id=8]
+[ext_resource path="res://Assets/ArchitectsDaughter32.tres" type="DynamicFont" id=9]
+[ext_resource path="res://Assets/UIfruit.png" type="Texture" id=10]
+[ext_resource path="res://Assets/UIneedle.png" type="Texture" id=11]
+[ext_resource path="res://Assets/ROOTED.png" type="Texture" id=12]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -125,51 +127,60 @@ stream = ExtResource( 6 )
 [node name="shoot" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 
+[node name="walk" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 editor/display_folded = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+[node name="Layer1" type="Sprite" parent="CanvasLayer"]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Layer1"]
 margin_left = 25.3158
 margin_top = 517.368
 margin_right = 158.316
 margin_bottom = 574.368
-custom_fonts/normal_font = ExtResource( 8 )
+custom_fonts/normal_font = ExtResource( 9 )
 text = "Ammo"
 scroll_active = false
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="CanvasLayer"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="CanvasLayer/Layer1"]
 margin_left = 351.632
 margin_top = 517.895
 margin_right = 484.632
 margin_bottom = 574.895
-custom_fonts/normal_font = ExtResource( 8 )
+custom_fonts/normal_font = ExtResource( 9 )
 text = "Health"
 scroll_active = false
 
-[node name="Health1" type="Sprite" parent="CanvasLayer"]
+[node name="Health1" type="Sprite" parent="CanvasLayer/Layer1"]
 position = Vector2( 516.992, 539.617 )
 scale = Vector2( 0.107429, 0.107429 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
-[node name="Health2" type="Sprite" parent="CanvasLayer"]
+[node name="Health2" type="Sprite" parent="CanvasLayer/Layer1"]
 position = Vector2( 577.008, 539.617 )
 scale = Vector2( 0.107429, 0.107429 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
-[node name="Needle1" type="Sprite" parent="CanvasLayer"]
+[node name="Needle1" type="Sprite" parent="CanvasLayer/Layer1"]
 position = Vector2( 165.716, 539.617 )
 scale = Vector2( 0.107429, 0.107429 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 
-[node name="Needle2" type="Sprite" parent="CanvasLayer"]
+[node name="Needle2" type="Sprite" parent="CanvasLayer/Layer1"]
 position = Vector2( 219.716, 539.617 )
 scale = Vector2( 0.107429, 0.107429 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 
-[node name="Needle3" type="Sprite" parent="CanvasLayer"]
+[node name="Needle3" type="Sprite" parent="CanvasLayer/Layer1"]
 position = Vector2( 276.716, 539.617 )
 scale = Vector2( 0.107429, 0.107429 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
+
+[node name="Rooted" type="Sprite" parent="CanvasLayer/Layer1"]
+position = Vector2( 523.016, 454.263 )
+texture = ExtResource( 12 )
 
 [node name="AmmoRefresh" type="Timer" parent="."]
 wait_time = 5.0
