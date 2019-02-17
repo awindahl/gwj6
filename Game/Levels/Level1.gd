@@ -9,7 +9,6 @@ var gameOver = false
 
 func _process(delta):
 	if player.levelComplete:
-		$Environment/win.play(0)
 		$LevelEndScreen/Layer1.visible = true
 		
 		if number <= 3.0:
@@ -31,6 +30,7 @@ func _process(delta):
 		
 		if temp == 0:
 			temp = 1
+			$Environment/win.play(0)
 			score /= round(time/10)
 		
 			print(score)
