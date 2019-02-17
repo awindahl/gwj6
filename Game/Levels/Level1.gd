@@ -5,9 +5,11 @@ var number = 0
 var time = 0
 var score = 0
 var temp = 0
+var gameOver = false
 
 func _process(delta):
 	if player.levelComplete:
+		$Environment/win.play(0)
 		$LevelEndScreen/Layer1.visible = true
 		
 		if number <= 3.0:
@@ -45,3 +47,12 @@ func _process(delta):
 		
 	else:
 		time += delta
+		if player.health < 1 && !gameOver:
+			gameOver = true
+			$Environment/lose.play(0)
+
+func _on_ambient_finished():
+	$Environment/ambient.play(0)
+
+func _on_badMusic_finished():
+	$Environment/badMusic.play(0)
