@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Levels/Level1.gd" type="Script" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -7,12 +7,18 @@
 [ext_resource path="res://Assets/lowPolyObjectPack/Cactus A.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/lowPolyObjectPack/fancyfence.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Assets/lowPolyObjectPack/stone.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Levels/Level Mechanics/Gate.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Levels/Level Mechanics/Switch.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Assets/lowPolyObjectPack/Goalpost.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Assets/bandit/Bandit.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Levels/LevelEndScreen.tscn" type="PackedScene" id=12]
-[ext_resource path="res://water_test_scene/pool.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Assets/lowPolyObjectPack/Pipe.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Assets/lowPolyObjectPack/cart.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/lowPolyObjectPack/Barrel.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Assets/lowPolyObjectPack/sign.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Levels/Level Mechanics/Gate.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Levels/Level Mechanics/Switch.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Assets/lowPolyObjectPack/Goalpost.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Levels/Level Mechanics/Valve.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Levels/Level Mechanics/Faucet.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Assets/bandit/Bandit.tscn" type="PackedScene" id=17]
+[ext_resource path="res://water_test_scene/pool.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Levels/LevelEndScreen.tscn" type="PackedScene" id=19]
 
 [sub_resource type="ProceduralSky" id=1]
 
@@ -40,8 +46,8 @@ glow_bloom = 0.3
 [sub_resource type="Curve3D" id=3]
 
 _data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -2.42616, 0.304907, 9.15654, 0, 0, 0, 0, 0, 0, 7.50872, -0.796122, 23.1882, 0, 0, 0, 0, 0, 0, 20.9587, -2.31552, 32.1152, 0, 0, 0, 0, 0, 0, 30.2886, -3.39451, 29.5671, 0, 0, 0, 0, 0, 0, 38.2863, -4.34138, 19.7196, 0, 0, 0, 0, 0, 0, 38.0501, -4.36341, 2.55168, 0, 0, 0, 0, 0, 0, 33.5132, -3.87898, -10.2638, 0, 0, 0, 0, 0, 0, 18.2003, -2.13937, -17.0218, 0, 0, 0, 0, 0, 0, 6.87352, -0.818155, -9.9857, 0, 0, 0, 0, 0, 0, -0.334536, 0.0186214, -6.91158, 0, 0, 0, 0, 0, 0, -2.42616, 0.304907, 9.15654 ),
-"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -2.42616, 0.304907, 9.15654, 0, 0, 0, 0, 0, 0, 4.64936, 0.495811, 21.1136, 0, 0, 0, 0, 0, 0, 18.8583, 1.03026, 31.9961, 0, 0, 0, 0, 0, 0, 22.8443, 0.229017, 25.7081, 0, 0, 0, 0, 0, 0, 28.922, 0.915199, 13.6546, 0, 0, 0, 0, 0, 0, 26.8273, 1.04373, 8.85135, 0, 0, 0, 0, 0, 0, 20.667, 1.01571, 4.6636, 0, 0, 0, 0, 0, 0, 0.990967, -0.910715, -7.95251, 0, 0, 0, 0, 0, 0, -4.39548, -1.43381, -0.218111, 0, 0, 0, 0, 0, 0, -2.42616, 0.304907, 9.15654 ),
+"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
 }
 
 [sub_resource type="Curve3D" id=4]
@@ -310,25 +316,64 @@ transform = Transform( -3.81678, 0, 1.49594, 0, 3, 0, -1.19675, 0, -4.77097, -20
 [node name="Big Stone16" parent="Doodads" instance=ExtResource( 7 )]
 transform = Transform( 3.21657, 0, 0, 0, 2.2784, 0, 0, 0, 4.22578, -4.99692, -1.1027, -34.5467 )
 
+[node name="Pipe" parent="Doodads" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -42.3745, 9.71657, -37.6948 )
+
+[node name="Pipe3" parent="Doodads" instance=ExtResource( 8 )]
+transform = Transform( 2.77181, 0, 0, 0, 1, 0, 0, 0, 1, -26.54, 9.71657, -37.6948 )
+
+[node name="Pipe4" parent="Doodads" instance=ExtResource( 8 )]
+transform = Transform( 1.93634, 0, -0.715529, 0, 1, 0, 1.98331, 0, 0.698583, 5.65209, 10.0428, -29.8014 )
+
+[node name="Pipe5" parent="Doodads" instance=ExtResource( 8 )]
+transform = Transform( 6.37662, 0, 0.0517555, 0, 1, 0, -0.0623425, 0, 0.999747, 46.1155, 10.0428, -18.8259 )
+
+[node name="Pipe2" parent="Doodads" instance=ExtResource( 8 )]
+transform = Transform( -0.0429071, 0, 0.999079, 0, 1, 0, -2.21377, 0, -0.0950742, -37.324, 9.71657, -47.7553 )
+
+[node name="Cart" parent="Doodads" instance=ExtResource( 9 )]
+transform = Transform( 2.27612, 0.637229, 1.84749, -0.872905, 2.86891, 0.0858904, -1.74852, -0.602727, 2.36208, 30.5474, 2.81542, 47.7756 )
+
+[node name="Barrel" parent="Doodads" instance=ExtResource( 10 )]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 35.5662, 2.93545, 59.4319 )
+
+[node name="Barrel2" parent="Doodads" instance=ExtResource( 10 )]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 35.5662, 2.93545, 56.1503 )
+
+[node name="Barrel3" parent="Doodads" instance=ExtResource( 10 )]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 37.6528, 2.93545, 57.7749 )
+
+[node name="Barrel4" parent="Doodads" instance=ExtResource( 10 )]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 36.0957, 7.32237, 58.2487 )
+
+[node name="Sign" parent="Doodads" instance=ExtResource( 11 )]
+transform = Transform( 2.30775, 0, -1.91685, 0, 3, 0, 1.91685, 0, 2.30775, -37.4018, 2.16329, 56.5507 )
+
 [node name="Mechanics" type="Node" parent="."]
 editor/display_folded = true
 
-[node name="Gate" parent="Mechanics" instance=ExtResource( 8 )]
+[node name="Gate" parent="Mechanics" instance=ExtResource( 12 )]
 transform = Transform( -0.157004, -0.0486609, -0.964694, 0.00758382, 0.998639, -0.0516074, 0.659029, 0.0139095, 0.366005, -48.2142, 6.684, 0.35054 )
 
-[node name="Switch" parent="Mechanics" instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -42.1049, 15.0565, -60.7588 )
+[node name="Switch" parent="Mechanics" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -30.1017, 4.36319, -40.031 )
 
-[node name="Switch2" parent="Mechanics" instance=ExtResource( 9 )]
+[node name="Switch2" parent="Mechanics" instance=ExtResource( 13 )]
 transform = Transform( 0.940904, -0.337648, 0.0263453, 0.337402, 0.941265, 0.0134219, -0.0293298, -0.0037398, 0.999563, 47.0801, -1.18145, 12.4092 )
 connectedTo = 1
 
-[node name="GoalPost" parent="Mechanics" instance=ExtResource( 10 )]
+[node name="GoalPost" parent="Mechanics" instance=ExtResource( 14 )]
 transform = Transform( 0.210876, 0, 0.977513, 0, 1, 0, -0.977513, 0, 0.210876, -43.3443, 9.11597, 6.88517 )
 
-[node name="Gate2" parent="Mechanics" instance=ExtResource( 8 )]
-transform = Transform( 0.0943126, 0, 0.995543, 0, 1, 0, -0.995543, 0, 0.0943126, -3.88751, 6.34664, -56.2898 )
+[node name="Gate2" parent="Mechanics" instance=ExtResource( 12 )]
+transform = Transform( 0.0943126, 0, 0.995543, 0, 1, 0, -0.995543, 0, 0.0943126, -3.88751, 4.34314, -56.2898 )
 connectedTo = 1
+
+[node name="Valve" parent="Mechanics" instance=ExtResource( 15 )]
+transform = Transform( -1.65273, -1.1249, -0.0556437, -1.05606, 1.58215, -0.617676, 0.39143, -0.481044, -1.90142, 3.91856, 6.35342, -40.9005 )
+
+[node name="Faucet" parent="Mechanics" instance=ExtResource( 16 )]
+transform = Transform( -0.00865319, 0, 0.999963, 0, 1, 0, -0.999963, 0, -0.00865319, -37.2203, 9.71323, -36.6706 )
 
 [node name="Enemies" type="Node" parent="."]
 editor/display_folded = true
@@ -340,7 +385,16 @@ curve = SubResource( 3 )
 [node name="PathFollow" type="PathFollow" parent="Enemies/Path"]
 rotation_mode = 4
 
-[node name="Bandit" parent="Enemies/Path/PathFollow" instance=ExtResource( 11 )]
+[node name="Bandit" parent="Enemies/Path/PathFollow" instance=ExtResource( 17 )]
+
+[node name="Path3" type="Path" parent="Enemies"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -67.0505, 2.88311, 23.2011 )
+curve = SubResource( 3 )
+
+[node name="PathFollow" type="PathFollow" parent="Enemies/Path3"]
+rotation_mode = 4
+
+[node name="Bandit" parent="Enemies/Path3/PathFollow" instance=ExtResource( 17 )]
 
 [node name="Path2" type="Path" parent="Enemies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.81105, -62.0021 )
@@ -349,15 +403,21 @@ curve = SubResource( 4 )
 [node name="PathFollow" type="PathFollow" parent="Enemies/Path2"]
 rotation_mode = 4
 
-[node name="Bandit" parent="Enemies/Path2/PathFollow" instance=ExtResource( 11 )]
-
-[node name="LevelEndScreen" parent="." instance=ExtResource( 12 )]
+[node name="Bandit" parent="Enemies/Path2/PathFollow" instance=ExtResource( 17 )]
 
 [node name="Puddles" type="Node" parent="."]
 
-[node name="pool" parent="Puddles" instance=ExtResource( 13 )]
+[node name="pool" parent="Puddles" instance=ExtResource( 18 )]
 transform = Transform( 2.13564, 0, 0, 0, 1, 0, 0, 0, 1.72194, 3.97852, 4.59137, 17.3709 )
+script = null
 
-[node name="pool2" parent="Puddles" instance=ExtResource( 13 )]
+[node name="pool2" parent="Puddles" instance=ExtResource( 18 )]
 transform = Transform( 6.22587, 0, 0, 0, 1, 0, 0, 0, 5.01984, -18.6001, 0.768307, 40.1614 )
+script = null
+
+[node name="pool3" parent="Puddles" instance=ExtResource( 18 )]
+transform = Transform( -2.64419, 0, 0, 0, 0.99825, 0.126083, 0, 0.0591391, -2.12824, -29.2592, 4.01192, -31.4008 )
+script = null
+
+[node name="LevelEndScreen" parent="." instance=ExtResource( 19 )]
 

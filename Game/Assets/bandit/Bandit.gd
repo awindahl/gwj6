@@ -95,9 +95,10 @@ func can_see_entity(entity) -> float:
 	return NAN
 
 func shoot(entity) -> void:
-	$AnimationPlayer.play("shoot")
-	$shoot2.play(0)
-	entity.knockback(self, BULLET_FORCE)
+	if isAlive:
+		$AnimationPlayer.play("shoot")
+		$shoot2.play(0)
+		entity.knockback(self, BULLET_FORCE)
 
 func _on_GunTimer_timeout():
 	if player.isAlive:

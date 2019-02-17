@@ -130,6 +130,7 @@ stream = ExtResource( 7 )
 
 [node name="walk" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+volume_db = -10.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 editor/display_folded = true
