@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/sand_step.wav-ad8a449f2e4aeebdd7cbe2f57cd2cb18.sample"
+
+[deps]
+
+source_file="res://Assets/sounds/cactus/sand_step.wav"
+dest_files=[ "res://.import/sand_step.wav-ad8a449f2e4aeebdd7cbe2f57cd2cb18.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

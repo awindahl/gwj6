@@ -32,6 +32,8 @@ var cutsceneIsPlaying = false
 var canRoot = true
 var temp = 0
 var isAlive = true
+var levelComplete = false
+var waterOff = false
 
 # Indetermined vars
 var Up
@@ -52,12 +54,14 @@ var Body
 var Turn
 var isPlaying 
 
+var waterFinished = true
+
 func _ready():
 	$CameraTarget/ThirdPerson/TPCamera.make_current()
 
 func _physics_process(delta):
 	
-	if isAlive:
+	if isAlive and not levelComplete:
 		
 		if not cutsceneIsPlaying:
 			_rotation_process()
@@ -66,6 +70,8 @@ func _physics_process(delta):
 			_shoot()
 			_climb()
 			_looking_at()
+			
+	_ui_handler()
 			
 		# You can only jump if you are touching the floor
 	if not $FloorRay.is_colliding():
@@ -155,7 +161,12 @@ func _movement_process(delta):
 		isPlaying = false
 		temp = 0
 		_play_anim("walk_anim")
-	
+		if !canRoot:
+			if waterFinished:
+				$water_walk.play(0)
+		else:
+			if waterFinished:
+				$water_walk.stop()
 	
 	Direction2d = Direction2d.normalized()
 	Direction3d += global_transform.basis.z.normalized() * Direction2d.y
@@ -185,8 +196,10 @@ func _root():
 	Space = Input.is_action_just_pressed("Space")
 	if Space and IsRooted:
 		IsRooted = false
+		$root.play(0)
 	elif Space and not IsRooted and not ShouldRotateLeft and not ShouldRotateRight and not IsZoomed and not IsClimbing and canRoot and $FloorRay.is_colliding():
 		IsRooted = true
+		$root.play(0)
 	
 func _shoot():
 	# Switch Camera to FPS when shooting
@@ -228,6 +241,7 @@ func _shoot():
 		$CameraTarget/Yaw/FPSCamera/Arm.visible = true
 		$MeshInstance.visible = false
 		if Click and NumberOfNeedles != 0:
+			$shoot.play(0)
 			NumberOfNeedles -= 1
 			var NewNeedle = Needle.instance()
 			get_parent().add_child(NewNeedle)
@@ -271,6 +285,7 @@ func _climb_check():
 		return 0
 
 func knockback(source : Spatial, force : float) -> void:
+	$hurt.play(0)
 	var direction = global_transform.origin - source.global_transform.origin
 	Velocity += direction*force
 	health -= 1
@@ -278,10 +293,15 @@ func knockback(source : Spatial, force : float) -> void:
 		_die()
 
 func _die():
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	IsZoomed = false
+	$CameraTarget/Yaw/FPSCamera/Crosshair.visible = false
+	$CameraTarget/Yaw/FPSCamera/Arm.visible = false
+	$MeshInstance.visible = true
+	CanMoveMouse = false
 	$MeshInstance/AnimationPlayer.play("death_anim")
 	isAlive = false
 	
-
 func _looking_at():
 	## Inputs
 	Turn = Input.is_action_pressed("Turn")
@@ -290,9 +310,44 @@ func _looking_at():
 		if Body.get("TYPE") == "VALVE":
 			if Turn:
 				get_parent().get_node("Mechanics/Faucet")._close()
+				waterOff = true
 
 func _play_anim(anim):
 	if not isPlaying:
 		$MeshInstance/AnimationPlayer.play(anim)
 		isPlaying = true
 
+func _on_water_walk_finished():
+	waterFinished = true
+
+func _ui_handler():
+	if health == 0:
+		$CanvasLayer/Health1.visible = false
+		$CanvasLayer/Health2.visible = false
+	if health == 1:
+		$CanvasLayer/Health1.visible = true
+		$CanvasLayer/Health2.visible = false
+	if health == 2:
+		$CanvasLayer/Health1.visible = true
+		$CanvasLayer/Health2.visible = true
+	
+	if NumberOfNeedles == 0:
+		$CanvasLayer/Needle1.visible = false
+		$CanvasLayer/Needle2.visible = false
+		$CanvasLayer/Needle3.visible = false
+	if NumberOfNeedles == 1:
+		$CanvasLayer/Needle1.visible = true
+		$CanvasLayer/Needle2.visible = false
+		$CanvasLayer/Needle3.visible = false
+	if NumberOfNeedles == 2:
+		$CanvasLayer/Needle1.visible = true
+		$CanvasLayer/Needle2.visible = true
+		$CanvasLayer/Needle3.visible = false
+	if NumberOfNeedles == 3:
+		$CanvasLayer/Needle1.visible = true
+		$CanvasLayer/Needle2.visible = true
+		$CanvasLayer/Needle3.visible = true
+
+func _on_AmmoRefresh_timeout():
+	if NumberOfNeedles < 3:
+		NumberOfNeedles += 1

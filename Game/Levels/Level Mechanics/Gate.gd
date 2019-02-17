@@ -9,6 +9,7 @@ func _ready():
 
 func _open():
 	if temp == 0:
+		$off.play(0)
 		$AnimationPlayer.play("Lower")
 		temp = 1
 
