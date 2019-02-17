@@ -11,11 +11,9 @@
 [ext_resource path="res://Menu/title.tres" type="Animation" id=9]
 
 [sub_resource type="ViewportTexture" id=1]
-
 viewport_path = NodePath("Viewport")
 
 [sub_resource type="Animation" id=2]
-
 resource_name = "credits"
 tracks/0/type = "value"
 tracks/0/path = NodePath("title:position")

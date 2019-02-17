@@ -9,11 +9,9 @@
 [ext_resource path="res://water_test_scene/pool.tscn" type="PackedScene" id=7]
 
 [sub_resource type="PanoramaSky" id=1]
-
 panorama = ExtResource( 2 )
 
 [sub_resource type="Environment" id=2]
-
 background_mode = 2
 background_sky = SubResource( 1 )
 background_energy = 1.65

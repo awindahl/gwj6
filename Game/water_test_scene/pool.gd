@@ -1,6 +1,6 @@
 extends Area
 
-onready var water = get_parent().get_parent().get_node("Environment/waterBody")
+onready var water = get_parent().get_parent().get_node("waterBody")
 onready var player = get_parent().get_parent().get_node("Player")
 var sinking = false
 #

@@ -21,13 +21,17 @@ _global_script_class_icons={
 [application]
 
 config/name="WildJam6"
-run/main_scene="res://Menu/menu2D.tscn"
+run/main_scene="res://Levels/TestLevel/TestLevel.tscn"
 config/icon="res://Assets/image.png"
 
 [autoload]
 
 tracker="*res://Player/tracker.gd"
 transition="*res://Transition/transition.tscn"
+
+[debug]
+
+settings/stdout/print_fps=true
 
 [display]
 
