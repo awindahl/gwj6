@@ -19,6 +19,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector3( 0, 0.557411, 0 ), Vector3( 0, -0.585315, 0 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Area/CollisionShape2:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 
 [sub_resource type="BoxShape" id=2]
 

@@ -307,6 +307,8 @@ func _die():
 	CanMoveMouse = false
 	$MeshInstance/AnimationPlayer.play("death_anim")
 	isAlive = false
+	$RespawnTimer.start()
+
 	
 func _looking_at():
 	## Inputs
@@ -357,3 +359,9 @@ func _ui_handler():
 func _on_AmmoRefresh_timeout():
 	if NumberOfNeedles < 3:
 		NumberOfNeedles += 1
+		
+func _restart():
+	transition.fade_to("res://Levels/GameOver.tscn", 0.9, "startSlide")
+
+func _on_RespawnTimer_timeout():
+	_restart()

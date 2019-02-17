@@ -29,6 +29,7 @@
 [ext_resource path="res://Levels/LevelEndScreen.tscn" type="PackedScene" id=27]
 
 [sub_resource type="ProceduralSky" id=1]
+
 sky_top_color = Color( 0.713726, 0.784314, 0.956863, 1 )
 sky_horizon_color = Color( 0.235294, 0.596078, 0.886275, 1 )
 sky_curve = 0.00742222
@@ -36,6 +37,7 @@ ground_bottom_color = Color( 1, 0.996078, 0.913725, 1 )
 ground_horizon_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="Environment" id=2]
+
 background_mode = 2
 background_sky = SubResource( 1 )
 background_sky_orientation = Basis( 1, 0, 0, 0, 26.79, 0, 0, 0, 1 )
@@ -50,13 +52,16 @@ glow_strength = 0.3
 glow_bloom = 0.3
 
 [sub_resource type="SpatialMaterial" id=3]
+
 albedo_color = Color( 0.909804, 0.717647, 0.513726, 1 )
 
 [sub_resource type="CubeMesh" id=4]
+
 material = SubResource( 3 )
 size = Vector3( 1000, 2, 1000 )
 
 [sub_resource type="ConcavePolygonShape" id=5]
+
 data = PoolVector3Array( -500, 1, 500, 500, 1, 500, -500, -1, 500, 500, 1, 500, 500, -1, 500, -500, -1, 500, 500, 1, -500, -500, 1, -500, 500, -1, -500, -500, 1, -500, -500, -1, -500, 500, -1, -500, 500, 1, 500, 500, 1, -500, 500, -1, 500, 500, 1, -500, 500, -1, -500, 500, -1, 500, -500, 1, -500, -500, 1, 500, -500, -1, -500, -500, 1, 500, -500, -1, 500, -500, -1, -500, 500, 1, 500, -500, 1, 500, 500, 1, -500, -500, 1, 500, -500, 1, -500, 500, 1, -500, -500, -1, 500, 500, -1, 500, -500, -1, -500, 500, -1, 500, 500, -1, -500, -500, -1, -500 )
 
 [node name="Level1" type="Spatial"]
@@ -94,20 +99,18 @@ shape = SubResource( 5 )
 
 [node name="ambient" type="AudioStreamPlayer" parent="Environment"]
 stream = ExtResource( 5 )
-volume_db = -20.0
+volume_db = -10.0
 autoplay = true
 
 [node name="win" type="AudioStreamPlayer" parent="Environment"]
 stream = ExtResource( 6 )
-volume_db = -20.0
+volume_db = -10.0
 
 [node name="lose" type="AudioStreamPlayer" parent="Environment"]
 stream = ExtResource( 7 )
-volume_db = -20.0
 
 [node name="badMusic" type="AudioStreamPlayer" parent="Environment"]
 stream = ExtResource( 8 )
-volume_db = -20.0
 autoplay = true
 
 [node name="Doodads" type="Node" parent="."]

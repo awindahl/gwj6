@@ -21,7 +21,7 @@ func _process(delta):
 		if number <= 8:
 			$LevelEndScreen/Layer1/Layer2.modulate.a = number
 		
-		$LevelEndScreen/Layer1/Layer2/TimeBonus.text = var2str(round(time/60)) + " : " + var2str(stepify(time, 1))
+		$LevelEndScreen/Layer1/Layer2/TimeBonus.text = var2str(stepify(time, 1))
 		
 		if player.health == 2:
 			$LevelEndScreen/Layer1/Layer2/Health1.visible = true
@@ -35,8 +35,7 @@ func _process(delta):
 		if temp == 0:
 			temp = 1
 			score /= round(time/10)
-		
-			print(score)
+
 			if score >= 20:
 				$LevelEndScreen/Layer1/Layer2/Rank.text = "S"
 			elif score < 20 and score >= 15:
