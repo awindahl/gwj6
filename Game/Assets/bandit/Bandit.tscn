@@ -1658,30 +1658,30 @@ autostart = true
 
 [node name="huh1" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
-volume_db = -40.0
+volume_db = -80.0
 
 [node name="huh2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
-volume_db = -40.0
+volume_db = -80.0
 
 [node name="hurt" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 12 )
-volume_db = -40.0
+volume_db = -80.0
 
 [node name="miss" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 13 )
-volume_db = -40.0
+volume_db = -80.0
 
 [node name="spotted" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 14 )
-volume_db = -40.0
+volume_db = -80.0
 
 [node name="wind" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 15 )
-volume_db = -40.0
+volume_db = -80.0
 
 [node name="shoot2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
-volume_db = -30.0
+volume_db = -80.0
 
 [connection signal="timeout" from="GunTimer" to="." method="_on_GunTimer_timeout"]

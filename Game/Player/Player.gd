@@ -70,8 +70,8 @@ func _physics_process(delta):
 			_shoot()
 			_climb()
 			_looking_at()
-			if not levelComplete:
-				_ui_handler()
+			
+	_ui_handler()
 			
 		# You can only jump if you are touching the floor
 	if not $FloorRay.is_colliding():
@@ -293,10 +293,15 @@ func knockback(source : Spatial, force : float) -> void:
 		_die()
 
 func _die():
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	IsZoomed = false
+	$CameraTarget/Yaw/FPSCamera/Crosshair.visible = false
+	$CameraTarget/Yaw/FPSCamera/Arm.visible = false
+	$MeshInstance.visible = true
+	CanMoveMouse = false
 	$MeshInstance/AnimationPlayer.play("death_anim")
 	isAlive = false
 	
-
 func _looking_at():
 	## Inputs
 	Turn = Input.is_action_pressed("Turn")
