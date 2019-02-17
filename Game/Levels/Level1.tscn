@@ -527,5 +527,8 @@ autostart = true
 
 [node name="LevelEndScreen" parent="." instance=ExtResource( 27 )]
 
+[node name="waterBody" parent="." instance=ExtResource( 3 )]
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, -5.32724, 0 )
+
 [connection signal="finished" from="Environment/ambient" to="." method="_on_ambient_finished"]
 [connection signal="finished" from="Environment/badMusic" to="." method="_on_badMusic_finished"]
