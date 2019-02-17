@@ -71,7 +71,8 @@ func _physics_process(delta):
 			_climb()
 			_looking_at()
 			
-	_ui_handler()
+	if levelComplete:
+		$CanvasLayer/Layer1.visible = false
 			
 		# You can only jump if you are touching the floor
 	if not $FloorRay.is_colliding():
@@ -155,6 +156,7 @@ func _movement_process(delta):
 		if temp == 0:
 			isPlaying = false
 			_play_anim("idle_anim")
+			$walk.stop()
 			temp = 1
 	
 	if IsMoving and temp == 1 and not IsRooted:
@@ -165,6 +167,7 @@ func _movement_process(delta):
 			if waterFinished:
 				$water_walk.play(0)
 		else:
+			$walk.play(0)
 			if waterFinished:
 				$water_walk.stop()
 	
@@ -196,9 +199,11 @@ func _root():
 	Space = Input.is_action_just_pressed("Space")
 	if Space and IsRooted:
 		IsRooted = false
+		$CanvasLayer/Layer1/Rooted.visible = false
 		$root.play(0)
 	elif Space and not IsRooted and not ShouldRotateLeft and not ShouldRotateRight and not IsZoomed and not IsClimbing and canRoot and $FloorRay.is_colliding():
 		IsRooted = true
+		$CanvasLayer/Layer1/Rooted.visible = true
 		$root.play(0)
 	
 func _shoot():
@@ -322,31 +327,31 @@ func _on_water_walk_finished():
 
 func _ui_handler():
 	if health == 0:
-		$CanvasLayer/Health1.visible = false
-		$CanvasLayer/Health2.visible = false
+		$CanvasLayer/Layer1/Health1.visible = false
+		$CanvasLayer/Layer1/Health2.visible = false
 	if health == 1:
-		$CanvasLayer/Health1.visible = true
-		$CanvasLayer/Health2.visible = false
+		$CanvasLayer/Layer1/Health1.visible = true
+		$CanvasLayer/Layer1/Health2.visible = false
 	if health == 2:
-		$CanvasLayer/Health1.visible = true
-		$CanvasLayer/Health2.visible = true
+		$CanvasLayer/Layer1/Health1.visible = true
+		$CanvasLayer/Layer1/Health2.visible = true
 	
 	if NumberOfNeedles == 0:
-		$CanvasLayer/Needle1.visible = false
-		$CanvasLayer/Needle2.visible = false
-		$CanvasLayer/Needle3.visible = false
+		$CanvasLayer/Layer1/Needle1.visible = false
+		$CanvasLayer/Layer1/Needle2.visible = false
+		$CanvasLayer/Layer1/Needle3.visible = false
 	if NumberOfNeedles == 1:
-		$CanvasLayer/Needle1.visible = true
-		$CanvasLayer/Needle2.visible = false
-		$CanvasLayer/Needle3.visible = false
+		$CanvasLayer/Layer1/Needle1.visible = true
+		$CanvasLayer/Layer1/Needle2.visible = false
+		$CanvasLayer/Layer1/Needle3.visible = false
 	if NumberOfNeedles == 2:
-		$CanvasLayer/Needle1.visible = true
-		$CanvasLayer/Needle2.visible = true
-		$CanvasLayer/Needle3.visible = false
+		$CanvasLayer/Layer1/Needle1.visible = true
+		$CanvasLayer/Layer1/Needle2.visible = true
+		$CanvasLayer/Layer1/Needle3.visible = false
 	if NumberOfNeedles == 3:
-		$CanvasLayer/Needle1.visible = true
-		$CanvasLayer/Needle2.visible = true
-		$CanvasLayer/Needle3.visible = true
+		$CanvasLayer/Layer1/Needle1.visible = true
+		$CanvasLayer/Layer1/Needle2.visible = true
+		$CanvasLayer/Layer1/Needle3.visible = true
 
 func _on_AmmoRefresh_timeout():
 	if NumberOfNeedles < 3:
