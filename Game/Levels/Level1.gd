@@ -6,10 +6,13 @@ var time = 0
 var score = 0
 var temp = 0
 var gameOver = false
+var gameClear = false
 
 func _process(delta):
 	if player.levelComplete:
-		$Environment/win.play(0)
+		if !gameClear:
+			gameClear = true
+			$Environment/win.play(0)
 		$LevelEndScreen/Layer1.visible = true
 		
 		if number <= 3.0:
