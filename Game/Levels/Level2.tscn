@@ -25,6 +25,7 @@
 [ext_resource path="res://Levels/LevelEndScreen.tscn" type="PackedScene" id=23]
 
 [sub_resource type="ProceduralSky" id=1]
+
 sky_top_color = Color( 0.713726, 0.784314, 0.956863, 1 )
 sky_horizon_color = Color( 0.235294, 0.596078, 0.886275, 1 )
 sky_curve = 0.00742222
@@ -32,6 +33,7 @@ ground_bottom_color = Color( 1, 0.996078, 0.913725, 1 )
 ground_horizon_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="Environment" id=2]
+
 background_mode = 2
 background_sky = SubResource( 1 )
 background_sky_orientation = Basis( 1, 0, 0, 0, 26.79, 0, 0, 0, 1 )
@@ -46,12 +48,14 @@ glow_strength = 0.3
 glow_bloom = 0.3
 
 [sub_resource type="Curve3D" id=3]
+
 _data = {
 "points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -2.42616, 0.304907, 9.15654, 0, 0, 0, 0, 0, 0, 4.64936, 0.495811, 21.1136, 0, 0, 0, 0, 0, 0, 18.8583, 1.03026, 31.9961, 0, 0, 0, 0, 0, 0, 22.8443, 0.229017, 25.7081, 0, 0, 0, 0, 0, 0, 28.922, 0.915199, 13.6546, 0, 0, 0, 0, 0, 0, 26.8273, 1.04373, 8.85135, 0, 0, 0, 0, 0, 0, 20.667, 1.01571, 4.6636, 0, 0, 0, 0, 0, 0, 0.990967, -0.910715, -7.95251, 0, 0, 0, 0, 0, 0, -4.39548, -1.43381, -0.218111, 0, 0, 0, 0, 0, 0, -2.42616, 0.304907, 9.15654 ),
 "tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
 }
 
 [sub_resource type="Curve3D" id=4]
+
 _data = {
 "points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 0.716326, 2.51422, 9.81038, 0, 0, 0, 0, 0, 0, 0.228397, 1.72932, 5.45952, 0, 0, 0, 0, 0, 0, -0.0874271, 0.551971, 0.96114, 0, 0, 0, 0, 0, 0, 0.716326, 2.51422, 9.81038 ),
 "tilts": PoolRealArray( 0, 0, 0, 0 )
@@ -77,20 +81,18 @@ transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -0.0296411, 3.90673, -0.056479
 
 [node name="ambient" type="AudioStreamPlayer" parent="Environment"]
 stream = ExtResource( 4 )
-volume_db = -20.0
+volume_db = -10.0
 autoplay = true
 
 [node name="win" type="AudioStreamPlayer" parent="Environment"]
 stream = ExtResource( 5 )
-volume_db = -20.0
+volume_db = -10.0
 
 [node name="lose" type="AudioStreamPlayer" parent="Environment"]
 stream = ExtResource( 6 )
-volume_db = -20.0
 
 [node name="badMusic" type="AudioStreamPlayer" parent="Environment"]
 stream = ExtResource( 7 )
-volume_db = -20.0
 autoplay = true
 
 [node name="Doodads" type="Node" parent="."]

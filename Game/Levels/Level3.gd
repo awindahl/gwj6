@@ -63,7 +63,7 @@ func _process(delta):
 			raise = false
 			gameOver = true
 			$Environment/lose.play(0)
-			$Player/MeshInstance/AnimationPlayer.play("death_anim")
+			$Player._die()
 
 func _raiseWater():
 	if raise:
