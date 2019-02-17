@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Levels/Level1.gd" type="Script" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -23,6 +23,7 @@
 [ext_resource path="res://Assets/bandit/Bandit.tscn" type="PackedScene" id=21]
 [ext_resource path="res://water_test_scene/pool.tscn" type="PackedScene" id=22]
 [ext_resource path="res://Levels/LevelEndScreen.tscn" type="PackedScene" id=23]
+[ext_resource path="res://water_test_scene/waterBody.tscn" type="PackedScene" id=24]
 
 [sub_resource type="ProceduralSky" id=1]
 
@@ -432,6 +433,9 @@ editor/display_folded = true
 transform = Transform( 3.44941, 0, 0, 0, 1, 0, 0, 0, 3.44941, -31.6363, 3.1216, -34.5079 )
 
 [node name="LevelEndScreen" parent="." instance=ExtResource( 23 )]
+
+[node name="waterBody" parent="." instance=ExtResource( 24 )]
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0.287753, 0 )
 
 [connection signal="finished" from="Environment/ambient" to="." method="_on_ambient_finished"]
 [connection signal="finished" from="Environment/badMusic" to="." method="_on_badMusic_finished"]
