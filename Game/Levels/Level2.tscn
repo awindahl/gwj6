@@ -12,6 +12,7 @@
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=10]
 
 [sub_resource type="ProceduralSky" id=1]
+
 sky_top_color = Color( 0.713726, 0.784314, 0.956863, 1 )
 sky_horizon_color = Color( 0.235294, 0.596078, 0.886275, 1 )
 sky_curve = 0.00742222
@@ -19,6 +20,7 @@ ground_bottom_color = Color( 1, 0.996078, 0.913725, 1 )
 ground_horizon_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="Environment" id=2]
+
 background_mode = 2
 background_sky = SubResource( 1 )
 background_sky_orientation = Basis( 1, 0, 0, 0, 26.79, 0, 0, 0, 1 )
@@ -33,12 +35,14 @@ glow_strength = 0.3
 glow_bloom = 0.3
 
 [sub_resource type="Curve3D" id=3]
+
 _data = {
 "points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -2.42616, 0.304907, 9.15654, 0, 0, 0, 0, 0, 0, 7.50872, -0.796122, 23.1882, 0, 0, 0, 0, 0, 0, 20.9587, -2.31552, 32.1152, 0, 0, 0, 0, 0, 0, 30.2886, -3.39451, 29.5671, 0, 0, 0, 0, 0, 0, 38.2863, -4.34138, 19.7196, 0, 0, 0, 0, 0, 0, 38.0501, -4.36341, 2.55168, 0, 0, 0, 0, 0, 0, 33.5132, -3.87898, -10.2638, 0, 0, 0, 0, 0, 0, 18.2003, -2.13937, -17.0218, 0, 0, 0, 0, 0, 0, 6.87352, -0.818155, -9.9857, 0, 0, 0, 0, 0, 0, -0.334536, 0.0186214, -6.91158, 0, 0, 0, 0, 0, 0, -2.42616, 0.304907, 9.15654 ),
 "tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
 }
 
 [sub_resource type="Curve3D" id=4]
+
 _data = {
 "points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 0.716326, 2.51422, 9.81038, 0, 0, 0, 0, 0, 0, 0.228397, 1.72932, 5.45952, 0, 0, 0, 0, 0, 0, -0.0874271, 0.551971, 0.96114, 0, 0, 0, 0, 0, 0, 0.716326, 2.51422, 9.81038 ),
 "tilts": PoolRealArray( 0, 0, 0, 0 )
@@ -52,7 +56,8 @@ _data = {
 environment = SubResource( 2 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="Environment"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.7873, 11.1118 )
+transform = Transform( 1, 0, 0, 0, -0.586266, 0.810119, 0, -0.810119, -0.586266, 0, 30.7873, 11.1118 )
+shadow_enabled = true
 
 [node name="Ground" parent="Environment" instance=ExtResource( 1 )]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -0.0296411, 3.90673, -0.0564795 )
